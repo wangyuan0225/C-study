@@ -1,26 +1,337 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-int getPeachNumber(n)
-{
-	int num;    //定义所剩桃子数
-	if (n == 10)
-	{
-		num = 1;       //递归结束条件
-	}
-	else
-	{
-		num = getPeachNumber(num)*2+1;   //这里是不应该用递归呢？
-		printf("第%d天所剩桃子%d个\n", 10-n, getPeachNumber(num)); //天数，所剩桃子个数
-		n++;
-	}
-	return num;
-}
+
 int main()
 {
-	int num = getPeachNumber(1);
-	printf("猴子第一天摘了:%d个桃子。\n", num);
+	srand((unsigned int)time(NULL));
+	int a = rand() % 4 + 9;
+	int b = rand() % 60;
+	//int a = 10;
+	//int b = 55;
+	int h, m, n;
+	int t;
+	printf("公交车始发于%d:", a);
+	if (a == 12)
+	{
+		printf("00\n");
+	}
+	else if (b < 10)
+		printf("0%d\n", b);
+	else if (b >= 10)
+		printf("%d\n", b);
+	
+	printf("发车时间段为9:00-12:00,请不要输错哦\n");
+	printf("请输入小明开始的时刻与站台\n");
+	printf("样例输入:10.00 2\n");
+	printf("用户输入:");
+	scanf_s("%d.%d %d", &h, &m, &n);
+	
+	if (n == 1)
+	{
+		if ((a * 60 + b) >= 650 && ((h * 60 + m) - (a * 60 + b) > 20))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((a * 60 + b) >= 580 && ((h * 60 + m) - (a * 60 + b) > 90))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((a * 60 + b) >= 510 && ((h * 60 + m) - (a * 60 + b) > 160))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((a * 60 + b) >= 440 && ((h * 60 + m) - (a * 60 + b) > 230))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((a * 60 + b) >= 370 && ((h * 60 + m) - (a * 60 + b) > 300))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((a * 60 + b) >= 300 && ((h * 60 + m) - (a * 60 + b) > 370))
+		{
+			printf("坐不到车车\n");
+		}
+		else if (h == a)
+		{
+			b += 20;
+			if (m > b)
+			{
+				t = 70 - (m - b);
+				printf("等待时间是%dmin\n", t);
+			}
+			else
+			{
+				t = b - m;
+				printf("等待时间是%dmin\n", t);
+			}
+		}
+		else if (h == a + 1)
+		{
+			if ((h * 60 + m) - (a * 60 + b) < 20)
+			{
+				t = (h * 60 + m) - (a * 60 + b);
+				printf("等待时间是%dmin\n", t);
+			}
+			else
+			{
+				t = -((h * 60 + m) - (a * 60 + b)) + 90;
+				printf("等待时间是%dmin\n", t);
+			}
+		}
+		else if (h == a + 2)
+		{
+			if ((h * 60 + m) - (a * 60 + b) < 90)
+			{
+				t = (a * 60 + b) + 90 - (h * 60 + m);
+				printf("等待时间是%dmin\n", t);
+			}
+			else
+			{
+				t = (a * 60 + b) + 160 - (h * 60 + m);
+				printf("等待时间是%dmin\n", t);
+			}
+		}
+		else if (h < a && a != 12)
+		{
+			t = -((h * 60 + m) - (a * 60 + b)) + 20;
+			printf("等待时间是%dmin\n", t);
+		}
+		else if (h < a && a == 12)
+		{
+			t = 740 - (h * 60 + m);
+			printf("等待时间是%dmin\n", t);
+		}
+	}
+	else if (n == 2)
+	{
+		if ((a * 60 + b) >= 650 && ((h * 60 + m) - (a * 60 + b) > 40))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((a * 60 + b) >= 580 && ((h * 60 + m) - (a * 60 + b) > 110))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((a * 60 + b) >= 510 && ((h * 60 + m) - (a * 60 + b) > 180))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((a * 60 + b) >= 440 && ((h * 60 + m) - (a * 60 + b) > 250))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((a * 60 + b) >= 370 && ((h * 60 + m) - (a * 60 + b) > 320))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((a * 60 + b) >= 300 && ((h * 60 + m) - (a * 60 + b) > 390))
+		{
+			printf("坐不到车车\n");
+		}
+		else if ((h * 60 + m) <= (a * 60 + b) && a != 12)
+		{
+			t = -((h * 60 + m) - (a * 60 + b)) + 40;
+			printf("等待时间是%dmin\n", t);
+		}
+		else if ((h * 60 + m) <= (a * 60 + b) && a == 12)
+		{
+			t = 760 - (h * 60 + m);
+			printf("等待时间是%dmin\n", t);
+		}
+		else if ((h * 60 + m) > (a * 60 + b))
+		{
+			if ((h * 60 + m) - (a * 60 + b) <= 40)
+			{
+				t = (a * 60 + b) + 40 - (h * 60 + m);
+				printf("等待时间是%dmin\n", t);
+			}
+			else if ((h * 60 + m) - (a * 60 + b) <= 110)
+			{
+				t = (a * 60 + b) + 110 - (h * 60 + m);
+				printf("等待时间是%dmin\n", t);
+			}
+			else if ((h * 60 + m) - (a * 60 + b) <= 180)
+			{
+				t = (a * 60 + b) + 180 - (h * 60 + m);
+				printf("等待时间是%dmin\n", t);
+			}
+		}
+	}
 	return 0;
 }
+
+
+//int main()
+//{
+//	int a, b, sum;
+//	a = 123;
+//	b = 456;
+//	/*a = 1;
+//	b = 2;*/
+//	sum = a + b;
+//	printf("sum is %d\n", sum);
+//	return 0;
+//}
+
+
+//int mian()
+//{
+//	printf("This is a C program.\n");
+//	return 0;
+//}
+
+
+//int  i, sum;
+//int main()
+//{
+//	
+//	ABC: srand((unsigned int)time(NULL));
+//	int a = rand() % 10 ;
+//	int b = rand() % 10 / 2;
+//	if (b > 4 || b < 1)
+//	{
+//		//printf("错误\n");
+//		goto ABC;
+//	}
+//	//printf("特征数为:");
+//	//scanf_s("%d", &a);
+//	//printf("特征数个数为:");
+//	//scanf_s("%d", &b);
+//	printf("特征数为:%d\n特征数个数为:%d\n", a, b);
+//	if (b > 4 || b < 1)
+//		printf("错误\n");
+//	else if (b == 4)
+//	{
+//		printf("%d%d%d%d,", a, a, a, a);
+//		sum++;
+//	}
+//	else if (b == 3)
+//	{
+//		for(i=1000;i<10000;i++)
+//		if (i / 1000 == a && i % 1000 / 100 == a && i % 100 / 10 == a && i % 10 != a)
+//		{
+//			printf("%d, ", i);
+//			sum++;
+//		}
+//		else if(i / 1000 == a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 == a)
+//		{
+//			printf("%d, ", i);
+//			sum++;
+//		}
+//		else if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 == a)
+//		{
+//			printf("%d, ", i);
+//			sum++;
+//		}
+//		else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 == a && i % 10 == a)
+//		{
+//			printf("%d, ", i);
+//			sum++;
+//		}
+//	}
+//	else if (b == 2)
+//	{
+//		for (i = 1000; i < 10000; i++)
+//		if (i / 1000 == a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 != a)
+//		{
+//			printf("%d, ", i);
+//			sum++;
+//		}
+//		else if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 != a)
+//		{
+//			printf("%d, ", i);
+//			sum++;
+//		}
+//		else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 == a && i % 10 != a)
+//		{
+//			printf("%d, ", i);
+//			sum++;
+//		}
+//		else if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 != a && i % 10 == a)
+//		{
+//			printf("%d, ", i);
+//			sum++;
+//		}
+//		else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 == a)
+//		{
+//			printf("%d, ", i);
+//			sum++;
+//		}
+//		else if (i / 1000 != a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 == a)
+//		{
+//			printf("%d, ", i);
+//			sum++;
+//		}
+//	
+//	}
+//	else if (b == 1)
+//	{
+//		for (i = 1000; i < 10000; i++)
+//			if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 != a && i % 10 != a)
+//			{
+//				printf("%d, ", i);
+//				sum++;
+//			}
+//			else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 != a)
+//			{
+//				printf("%d, ", i);
+//				sum++;
+//			}
+//			else if (i / 1000 != a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 != a)
+//			{
+//				printf("%d, ", i);
+//				sum++;
+//			}
+//			else if (i / 1000 != a && i % 1000 / 100 != a && i % 100 / 10 != a && i % 10 == a)
+//			{
+//				printf("%d, ", i);
+//				sum++;
+//			}
+//	}
+//	printf("中奖个数为%d", sum);
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	float a;
+//	do 
+//	{
+//		scanf_s("%f", &a);
+//		float b = a / 100;
+//		float c = b * 106.5;
+//		printf("%f", c);
+//	} while (a=100);
+//	return 0;
+//}
+
+
+//int getPeachNumber(n)
+//{
+//	int num;    //定义所剩桃子数
+//	if (n == 10)
+//	{
+//		num = 1;       //递归结束条件
+//	}
+//	else
+//	{
+//		num = getPeachNumber(num)*2+1;   //这里是不应该用递归呢？
+//		printf("第%d天所剩桃子%d个\n", 10-n, getPeachNumber(num)); //天数，所剩桃子个数
+//		n++;
+//	}
+//	return num;
+//}
+//int main()
+//{
+//	int num = getPeachNumber(1);
+//	printf("猴子第一天摘了:%d个桃子。\n", num);
+//	return 0;
+//}
+
 
 ///* Jone算出结果应该怎么写函数？ */
 //int  joneResult(int x, int y, int z)
