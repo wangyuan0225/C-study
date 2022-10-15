@@ -1,6 +1,68 @@
+#define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+//int main() 
+//{
+//	float b;
+//	int d;
+//	scanf_s("%f %d", &b,&d);
+//	printf("%f %d", b,d);
+//	return 0;
+//}
+
+
+//int main() {
+//	srand((unsigned int)time(NULL));
+//	float m = 0 + rand() % 60;
+//	float n = 9 + rand() % 3;
+//	float a = n + m / 100;
+//	float b;
+//	int a1, b1, c, d, end, sum, sam;
+//	printf("公交车始发于%.2f\n", a);
+//	printf("请输入小明开始的时刻与站台 ");
+//	printf("用户输入:");
+//	scanf("%.2f", &b);
+//	scanf("%d", &d);
+//	a1 = a;
+//	b1 = b;
+//	if (b <= a) {
+//		c = a1 - b1;
+//		end = 60 * c + 100 * (a - b - c) + 20 * d;
+//	}
+//	else if (b > a) {
+//		c = b1 - a1;
+//		sum = 60 * c + 100 * (b - a - c);
+//		if (sum <= 20 * d)
+//			end = 20 * d - sum;
+//		else if (sum > 20 * d) {
+//			if (sum <= 70)
+//				end = 70 - sum + 20 * d;
+//			else if (sum > 70) {
+//				sam = sum - (sum / 70) * 70;
+//				if (sam <= 20 * d)
+//					end = 20 * d - sam;
+//				else
+//					end = 70 - sam + 20 * d;
+//			}
+//		}
+//	}
+//	printf("等待时间是%dmin\n", end);
+//	return 0;
+//}
+
+
+
+//int main()
+//{
+//	//srand((unsigned int)time(NULL));
+//	//int a = rand();
+//	int a;
+//	printf("%d", a);
+//	int random(int 10);
+//	return 0;
+//}
 
 
 int main()
