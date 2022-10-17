@@ -2,6 +2,304 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdio.h>
+
+int main()
+{
+	int a[8] = { 80,90,85,84,70,76,75,83 };
+	int i, max = 0, min = 100;
+	for (i = 0; i < 8; i++)
+	{
+		if (a[i] > max)
+		{
+			max = a[i];
+		}
+		else if (a[i] < min)
+		{
+			min = a[i];
+		}
+	}
+	printf("最高分为:%d 最低分为:%d", max, min);
+	return 0;
+}
+
+
+//void replaceMax(int arr[], int value)
+//{
+//	int max = arr[0];
+//	int index = 0;
+//	int i;
+//	for (i = 1; i < 5; i++)
+//	{
+//		if (arr[i] > max)
+//		{
+//			max = arr[i];//将数组中较大的数赋值给max
+//			index = i;//记录当前索引
+//		}
+//	}
+//	arr[index] = value;
+//}
+//
+//int main()
+//{
+//	int arr1[] = { 10,41,3,12,22 };
+//	int arr2[] = { 1,2,3,4,5 };
+//	int i;
+//	replaceMax(arr1, arr2[0]); //将数组arr1和数组arr2的第一个元素传入函数中
+//	for (i = 0; i < 5; i++)
+//	{
+//		printf("%d ", arr1[i]);
+//	}
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	printf("%f",13 + 2.3 * 9 + 1);
+//	return 0;
+//}
+
+
+////读入一个年份和月份，打印出该月有多少天（考虑闰年），用switch语句编程实现。
+//int main()
+//{
+//	int year, month, day = 0;
+//	scanf("%d %d", &year, &month);
+//	switch (month)
+//	{
+//	case 12:
+//		day += 31;
+//		break;
+//	case 11:
+//		day += 30;
+//		break;
+//	case 10:
+//		day += 31;
+//		break;
+//	case 9:
+//		day += 30;
+//		break;
+//	case 8:
+//		day += 31;
+//		break;
+//	case 7:
+//		day += 31;
+//		break;
+//	case 6:
+//		day += 30;
+//		break;
+//	case 5:
+//		day += 31;
+//		break;
+//	case 4:
+//		day += 30;
+//		break;
+//	case 3:
+//		day += 31;
+//		break;
+//	case 2:
+//		if (year % 4 == 0 && year % 100 != 0)
+//		{
+//			day += 29;
+//		}
+//		else if (year % 400 == 0)
+//		{
+//			day += 29;
+//		}
+//		else
+//		{
+//			day += 28;
+//		}
+//		break;
+//	case 1:
+//		day += 31;
+//		break;
+//	}
+//	printf("%d", day);
+//	return 0;
+//}
+
+
+//5、在屏幕上显示一张如下所示的时间表：
+//* ****Time * ****
+//1  morning
+//2  afternoon
+//3  night
+//Please enter your choice :
+//操作人员根据提示进行选择，程序根据输入的时间序号显示相应的问候信息，选择1时显示"Good morning"， 选择2时显示"Good afternoon"， 选择3时显示"Good night"，对于其他选择显示"Selection error!"，用switch语句编程实现。
+
+//int main()
+//{
+//	int a;
+//	printf("****Time****\n");
+//	scanf("%d", &a);
+//	switch (a)
+//	{
+//	case 1:
+//		printf("Good morning\n");
+//		break;
+//	case 2:
+//		printf("Good afternoon");
+//		break;
+//	case 3:
+//		printf("Good night");
+//		break;
+//	default:
+//		printf("Selection error!");
+//
+//	}
+//	return 0;
+//}
+
+
+//4、输入三角形的三条边a，b，c，判断它们能否构成三角形。若能构成三角形，指出是何种三角形（等腰三角形、直角三角形、一般三角形）。
+//int main()
+//{
+//	int a, b, c;
+//	scanf("%d,%d,%d", &a, &b, &c);
+//	if (a + b > c && a + c > b && b + c > a)
+//	{
+//		if (a == b || a == c || b == c)
+//			printf("等腰");
+//		if (a * a + b * b == c * c || a * a + c * c == b * b || b * b + c * c == a * a)
+//			printf("直角");
+//		else
+//			printf("一般");
+//	}
+//	else
+//		printf("不构成");
+//	printf("三角形\n");
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int x;
+//	scanf("%d", &x);
+//	if (x > 0)
+//		printf("e^(-%d)", x);
+//	else if (x == 0)
+//		printf("1");
+//	else if (x < 0)
+//		printf("-e^(%d)", x);
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int a;
+//	scanf("%d", &a);
+//	if (a % 2 == 0)
+//		printf("偶数且为");
+//	else if (a % 2 != 0)
+//		printf("奇数且为");
+//	if (a > 0)
+//		printf("正数\n");
+//	else if (a < 0)
+//		printf("负数\n");
+//}
+
+
+////通过键盘输入一个字符，判断该字符是数字字符、大写字母、小写字母、空格还是其他字符。
+//int main()
+//{
+//	char pt;
+//	pt = getchar();
+//	//printf("%d\n", pt);
+//	if (pt >= 48 && pt <= 57)
+//	{
+//		printf("数字字符\n");
+//	}
+//	else if (pt >= 41 && pt <= 90)
+//	{
+//		printf("大写字母\n");
+//	}
+//	else if (pt >= 97 && pt <= 122)
+//	{
+//		printf("小写字母\n");
+//	}
+//	else if (pt == 32)
+//	{
+//		printf("空格\n");
+//	}
+//	else
+//	{
+//		printf("其他字符\n");
+//	}
+//	return 0;
+//}
+
+
+//从键盘任意输入一个年号，判断它是否是闰年。若是闰年，输出“Yes”，否则输出“No”。已知符合下列条件之一者是闰年：
+//■能被4整除，但不能被100整除。
+//■能被400整除。
+//int main()
+//{
+//	int year;
+//	printf("请输入年号:>");
+//	scanf("%d", &year);
+//	if (year % 4 == 0 && year % 100 != 0)
+//	{
+//		printf("该年是闰年\n");
+//	}
+//	else if (year % 400 == 0)
+//	{
+//		printf("该年是闰年\n");
+//	}
+//	else
+//	{
+//		printf("该年不是闰年\n");
+//	}
+//	return 0;
+//}
+
+
+/*
+ * 请使用递归函数完成本题
+ * 小编已将正确代码放在左侧任务的“不知道怎么办”里
+ * 小编希望各位童鞋独立完成哦~
+ */
+//int count(int age)
+//{
+//	int sum;
+//	if (age == 5)
+//	{
+//		sum = 10;
+//	}
+//	else
+//	{
+//		sum = count(age + 1) + 2;
+//		age++;
+//	}
+//	return sum;
+//}
+//int main()
+//{
+//	int sum= count(1);
+//	
+//	printf("第5个人的年龄是%d岁", sum);
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int x, y;
+//	scanf(" % d, % d", &x, &y);
+//	if (x > y)
+//	{
+//		x = y; y = x;
+//	}
+//	else
+//	{
+//		x++; y++;
+//	}
+//	printf(" % d, % d", x, y);
+//}
+
 
 //int main() 
 //{
@@ -65,165 +363,165 @@
 //}
 
 
-int main()
-{
-	srand((unsigned int)time(NULL));
-	int a = rand() % 4 + 9;
-	int b = rand() % 60;
-	//int a = 10;
-	//int b = 55;
-	int h, m, n;
-	int t;
-	printf("公交车始发于%d:", a);
-	if (a == 12)
-	{
-		printf("00\n");
-	}
-	else if (b < 10)
-		printf("0%d\n", b);
-	else if (b >= 10)
-		printf("%d\n", b);
-	
-	printf("发车时间段为9:00-12:00,请不要输错哦\n");
-	printf("请输入小明开始的时刻与站台\n");
-	printf("样例输入:10.00 2\n");
-	printf("用户输入:");
-	scanf_s("%d.%d %d", &h, &m, &n);
-	
-	if (n == 1)
-	{
-		if ((a * 60 + b) >= 650 && ((h * 60 + m) - (a * 60 + b) > 20))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((a * 60 + b) >= 580 && ((h * 60 + m) - (a * 60 + b) > 90))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((a * 60 + b) >= 510 && ((h * 60 + m) - (a * 60 + b) > 160))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((a * 60 + b) >= 440 && ((h * 60 + m) - (a * 60 + b) > 230))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((a * 60 + b) >= 370 && ((h * 60 + m) - (a * 60 + b) > 300))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((a * 60 + b) >= 300 && ((h * 60 + m) - (a * 60 + b) > 370))
-		{
-			printf("坐不到车车\n");
-		}
-		else if (h == a)
-		{
-			b += 20;
-			if (m > b)
-			{
-				t = 70 - (m - b);
-				printf("等待时间是%dmin\n", t);
-			}
-			else
-			{
-				t = b - m;
-				printf("等待时间是%dmin\n", t);
-			}
-		}
-		else if (h == a + 1)
-		{
-			if ((h * 60 + m) - (a * 60 + b) < 20)
-			{
-				t = (h * 60 + m) - (a * 60 + b);
-				printf("等待时间是%dmin\n", t);
-			}
-			else
-			{
-				t = -((h * 60 + m) - (a * 60 + b)) + 90;
-				printf("等待时间是%dmin\n", t);
-			}
-		}
-		else if (h == a + 2)
-		{
-			if ((h * 60 + m) - (a * 60 + b) < 90)
-			{
-				t = (a * 60 + b) + 90 - (h * 60 + m);
-				printf("等待时间是%dmin\n", t);
-			}
-			else
-			{
-				t = (a * 60 + b) + 160 - (h * 60 + m);
-				printf("等待时间是%dmin\n", t);
-			}
-		}
-		else if (h < a && a != 12)
-		{
-			t = -((h * 60 + m) - (a * 60 + b)) + 20;
-			printf("等待时间是%dmin\n", t);
-		}
-		else if (h < a && a == 12)
-		{
-			t = 740 - (h * 60 + m);
-			printf("等待时间是%dmin\n", t);
-		}
-	}
-	else if (n == 2)
-	{
-		if ((a * 60 + b) >= 650 && ((h * 60 + m) - (a * 60 + b) > 40))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((a * 60 + b) >= 580 && ((h * 60 + m) - (a * 60 + b) > 110))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((a * 60 + b) >= 510 && ((h * 60 + m) - (a * 60 + b) > 180))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((a * 60 + b) >= 440 && ((h * 60 + m) - (a * 60 + b) > 250))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((a * 60 + b) >= 370 && ((h * 60 + m) - (a * 60 + b) > 320))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((a * 60 + b) >= 300 && ((h * 60 + m) - (a * 60 + b) > 390))
-		{
-			printf("坐不到车车\n");
-		}
-		else if ((h * 60 + m) <= (a * 60 + b) && a != 12)
-		{
-			t = -((h * 60 + m) - (a * 60 + b)) + 40;
-			printf("等待时间是%dmin\n", t);
-		}
-		else if ((h * 60 + m) <= (a * 60 + b) && a == 12)
-		{
-			t = 760 - (h * 60 + m);
-			printf("等待时间是%dmin\n", t);
-		}
-		else if ((h * 60 + m) > (a * 60 + b))
-		{
-			if ((h * 60 + m) - (a * 60 + b) <= 40)
-			{
-				t = (a * 60 + b) + 40 - (h * 60 + m);
-				printf("等待时间是%dmin\n", t);
-			}
-			else if ((h * 60 + m) - (a * 60 + b) <= 110)
-			{
-				t = (a * 60 + b) + 110 - (h * 60 + m);
-				printf("等待时间是%dmin\n", t);
-			}
-			else if ((h * 60 + m) - (a * 60 + b) <= 180)
-			{
-				t = (a * 60 + b) + 180 - (h * 60 + m);
-				printf("等待时间是%dmin\n", t);
-			}
-		}
-	}
-	return 0;
-}
+//int main()
+//{
+//	srand((unsigned int)time(NULL));
+//	int a = rand() % 4 + 9;
+//	int b = rand() % 60;
+//	//int a = 10;
+//	//int b = 55;
+//	int h, m, n;
+//	int t;
+//	printf("公交车始发于%d:", a);
+//	if (a == 12)
+//	{
+//		printf("00\n");
+//	}
+//	else if (b < 10)
+//		printf("0%d\n", b);
+//	else if (b >= 10)
+//		printf("%d\n", b);
+//	
+//	printf("发车时间段为9:00-12:00,请不要输错哦\n");
+//	printf("请输入小明开始的时刻与站台\n");
+//	printf("样例输入:10.00 2\n");
+//	printf("用户输入:");
+//	scanf_s("%d.%d %d", &h, &m, &n);
+//	
+//	if (n == 1)
+//	{
+//		if ((a * 60 + b) >= 650 && ((h * 60 + m) - (a * 60 + b) > 20))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((a * 60 + b) >= 580 && ((h * 60 + m) - (a * 60 + b) > 90))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((a * 60 + b) >= 510 && ((h * 60 + m) - (a * 60 + b) > 160))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((a * 60 + b) >= 440 && ((h * 60 + m) - (a * 60 + b) > 230))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((a * 60 + b) >= 370 && ((h * 60 + m) - (a * 60 + b) > 300))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((a * 60 + b) >= 300 && ((h * 60 + m) - (a * 60 + b) > 370))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if (h == a)
+//		{
+//			b += 20;
+//			if (m > b)
+//			{
+//				t = 70 - (m - b);
+//				printf("等待时间是%dmin\n", t);
+//			}
+//			else
+//			{
+//				t = b - m;
+//				printf("等待时间是%dmin\n", t);
+//			}
+//		}
+//		else if (h == a + 1)
+//		{
+//			if ((h * 60 + m) - (a * 60 + b) < 20)
+//			{
+//				t = (h * 60 + m) - (a * 60 + b);
+//				printf("等待时间是%dmin\n", t);
+//			}
+//			else
+//			{
+//				t = -((h * 60 + m) - (a * 60 + b)) + 90;
+//				printf("等待时间是%dmin\n", t);
+//			}
+//		}
+//		else if (h == a + 2)
+//		{
+//			if ((h * 60 + m) - (a * 60 + b) < 90)
+//			{
+//				t = (a * 60 + b) + 90 - (h * 60 + m);
+//				printf("等待时间是%dmin\n", t);
+//			}
+//			else
+//			{
+//				t = (a * 60 + b) + 160 - (h * 60 + m);
+//				printf("等待时间是%dmin\n", t);
+//			}
+//		}
+//		else if (h < a && a != 12)
+//		{
+//			t = -((h * 60 + m) - (a * 60 + b)) + 20;
+//			printf("等待时间是%dmin\n", t);
+//		}
+//		else if (h < a && a == 12)
+//		{
+//			t = 740 - (h * 60 + m);
+//			printf("等待时间是%dmin\n", t);
+//		}
+//	}
+//	else if (n == 2)
+//	{
+//		if ((a * 60 + b) >= 650 && ((h * 60 + m) - (a * 60 + b) > 40))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((a * 60 + b) >= 580 && ((h * 60 + m) - (a * 60 + b) > 110))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((a * 60 + b) >= 510 && ((h * 60 + m) - (a * 60 + b) > 180))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((a * 60 + b) >= 440 && ((h * 60 + m) - (a * 60 + b) > 250))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((a * 60 + b) >= 370 && ((h * 60 + m) - (a * 60 + b) > 320))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((a * 60 + b) >= 300 && ((h * 60 + m) - (a * 60 + b) > 390))
+//		{
+//			printf("坐不到车车\n");
+//		}
+//		else if ((h * 60 + m) <= (a * 60 + b) && a != 12)
+//		{
+//			t = -((h * 60 + m) - (a * 60 + b)) + 40;
+//			printf("等待时间是%dmin\n", t);
+//		}
+//		else if ((h * 60 + m) <= (a * 60 + b) && a == 12)
+//		{
+//			t = 760 - (h * 60 + m);
+//			printf("等待时间是%dmin\n", t);
+//		}
+//		else if ((h * 60 + m) > (a * 60 + b))
+//		{
+//			if ((h * 60 + m) - (a * 60 + b) <= 40)
+//			{
+//				t = (a * 60 + b) + 40 - (h * 60 + m);
+//				printf("等待时间是%dmin\n", t);
+//			}
+//			else if ((h * 60 + m) - (a * 60 + b) <= 110)
+//			{
+//				t = (a * 60 + b) + 110 - (h * 60 + m);
+//				printf("等待时间是%dmin\n", t);
+//			}
+//			else if ((h * 60 + m) - (a * 60 + b) <= 180)
+//			{
+//				t = (a * 60 + b) + 180 - (h * 60 + m);
+//				printf("等待时间是%dmin\n", t);
+//			}
+//		}
+//	}
+//	return 0;
+//}
 
 
 //int main()
@@ -239,7 +537,7 @@ int main()
 //}
 
 
-//int mian()
+//int main()
 //{
 //	printf("This is a C program.\n");
 //	return 0;
@@ -381,8 +679,8 @@ int main()
 //	}
 //	else
 //	{
-//		num = getPeachNumber(num)*2+1;   //这里是不应该用递归呢？
-//		printf("第%d天所剩桃子%d个\n", 10-n, getPeachNumber(num)); //天数，所剩桃子个数
+//		num = getPeachNumber(n+1) * 2 + 2;  //这里是不应该用递归呢？
+//		printf("第%d天所剩桃子%d个\n", n, num); //天数，所剩桃子个数
 //		n++;
 //	}
 //	return num;
