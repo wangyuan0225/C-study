@@ -6,22 +6,349 @@
 
 int main()
 {
-	int a[8] = { 80,90,85,84,70,76,75,83 };
-	int i, max = 0, min = 100;
-	for (i = 0; i < 8; i++)
+	int grade[4][3] = { 82,77,76,90,59,56,87,48,75,86,86,66 };
+	int i, j;
+	for (i = 0; i < 4; i++)
 	{
-		if (a[i] > max)
+		for (j = 0; j < 3; j++)
 		{
-			max = a[i];
-		}
-		else if (a[i] < min)
-		{
-			min = a[i];
+			if (grade[i][j] < 60)
+			{
+				printf("第%d个同学不及格\n", i + 1);
+				continue;
+			}
 		}
 	}
-	printf("最高分为:%d 最低分为:%d", max, min);
 	return 0;
 }
+
+
+////优化方法参考  https://zhidao.baidu.com/question/372052575.html
+////经此方法复杂度大约少了一个数量级！！！
+////原理大概是我之前直接用遍历的数字和1后面好几个0取余浪费时间，这种算法将位数逐渐缩小，减少了计算时间 
+////amazing!
+//int main() {
+//	long long start, end;
+//	printf("请输入数字范围(1-100)：");
+//	scanf("%lld-%lld", &start, &end);
+//	printf("请输入特征数和个数(8 3)：");
+//	int feature, target_count;
+//	scanf("%d %d", &feature, &target_count);
+//	long long i, count = 0;
+//	//遍历从start到end所有数
+//	for (i = start; i <= end; i++) {
+//		long long  tmp = i;
+//		//定义内部计数器
+//		long long inner_count = 0;
+//		//第几位
+//		int j = 0;
+//		//遍历每一位
+//		int n;
+//		n = tmp % 10;
+//		//n>0的条件是错误的，会提前结束循环 
+//		while (tmp > 0)
+//		{
+//			if (n == feature) inner_count++;
+//			tmp = (tmp - n) / 10;
+//			n = tmp % 10;
+//		}
+//		if (inner_count == target_count) {
+//			printf("%lld ", i);
+//			count++;
+//		}
+//	}
+//	printf("\n总计%lld个\n", count);
+//	return 0;
+//}
+
+
+////优化方法灵感来自题目《大数字的竖式运算》！ 
+////此方法的效率不必多说！ 
+////原理是数组！计算机不喜欢十进制，so总是%10、/10的他会很难受 
+////但是速度只比不带plus的版本快了一倍 
+////amazing!
+//
+////329:  {9,2,3,-1}
+////329+1=330: {0,3,3,-1}
+////999: {9,9,9,-1}
+////999+1=1000: {0,0,0,1,-1} 
+//int list_add_one(int num_arr[]) {
+//	int i;
+//	for (i = 0; num_arr[i] != -1; i++) {
+//		int tmp;
+//		if (i == 0) {
+//			num_arr[i]++;
+//		}
+//		if (num_arr[i] == 10) {
+//			num_arr[i] = 0;
+//			//判断是否为结束标识符 
+//			if (num_arr[i + 1] == -1) {
+//				num_arr[i + 2] = -1;
+//				num_arr[i + 1] = 1;
+//			}
+//			else {
+//				num_arr[i + 1]++;
+//			}
+//		}
+//	}
+//	return 0;
+//}
+//
+//int main() {
+//	//数组num_arr其实就是倒序数字
+//	int num_arr[256] = { 0,-1 };
+//	long long start, end;
+//	printf("请输入数字范围(1-100)：");
+//	scanf("%lld-%lld", &start, &end);
+//	printf("请输入特征数和个数(8 3)：");
+//	int feature, target_count;
+//	scanf("%d %d", &feature, &target_count);
+//	long long i, count = 0;
+//	//使数组自增到start 
+//	int* a = &num_arr[0];
+//	for (i = 0; i < start; i++) {
+//		list_add_one(a);
+//	}
+//	//遍历从start到end所有数
+//	for (i = start; i <= end; i++) {
+//		int j;
+//		int inner_count = 0;
+//		//从个位开始，遍历数组每一位 
+//		for (j = 0; num_arr[j] != -1; j++) {
+//			if (num_arr[j] == feature) {
+//				inner_count++;
+//			}
+//		}
+//		//判断count条件，然后输出 
+//		if (inner_count == target_count) {
+//			count++;
+//			for (j--; j >= 0; j--) {
+//				printf("%d", num_arr[j]);
+//			}
+//			printf(" ");
+//		}
+//		//数组自增 
+//		int* p = &num_arr[0];
+//		list_add_one(p);
+//	}
+//	printf("\n总计%lld个\n", count);
+//	return 0;
+//}
+
+
+
+////三个版本中的初始版本，也是最慢的版本 
+//int main() {
+//	long long start, end;
+//	printf("请输入数字范围(1-100)：");
+//	scanf("%lld-%lld", &start, &end);
+//	printf("请输入特征数和个数(8 3)：");
+//	int feature, target_count;
+//	scanf("%d %d", &feature, &target_count);
+//	long long i, count = 0;
+//	//遍历从start到end所有数
+//	for (i = start; i <= end; i++) {
+//		int tmp;
+//		//遍历每一位
+//		long long j, inner_count = 0;
+//		for (j = 1; i / j > 0; j *= 10) {
+//			if (i / j % 10 == feature) inner_count++;
+//		}
+//		if (inner_count == target_count) {
+//			printf("%lld ", i);
+//			count++;
+//		}
+//	}
+//	printf("\n总计%lld个\n", count);
+//	return 0;
+//}
+
+
+
+//int main()
+//{
+//	double arr[] = { 1.78, 1.77, 1.82, 1.79, 1.85, 1.75, 1.86, 1.77, 1.81, 1.80 };
+//	int i, j;
+//	printf("\n************排队前*************\n");
+//	for (i = 0; i < 10; i++)
+//	{
+//		if (i != 9)
+//			printf("%.2f, ", arr[i]);  //%.2f表示小数点后精确到两位
+//		else
+//			printf("%.2f", arr[i]);    //%.2f表示小数点后精确到两位
+//	}
+//	for (i = 8; i >= 0; i--)
+//	{
+//		for (j = 0; j <= i; j++)
+//		{
+//			if (arr[j] > arr[j + 1])      //当前面的数比后面的数大时
+//			{
+//				double temp;    //定义临时变量temp
+//				temp = arr[j];   //将前面的数赋值给temp
+//				arr[j] = arr[j + 1];     //前后之数颠倒位置
+//				arr[j + 1] = temp; //将较大的数放在后面    
+//			}
+//		}
+//	}
+//	printf("\n************排队后*************\n");
+//	for (i = 0; i < 10; i++)
+//	{
+//		if (i != 9)
+//			printf("%.2f, ", arr[i]);  //%.2f表示小数点后精确到两位     
+//		else
+//			printf("%.2f", arr[i]);    //%.2f表示小数点后精确到两位
+//	}
+//	return 0;
+//}
+
+//int d()
+//{
+//	int score[10] = { 67,98,75,63,82,79,81,91,66,84 };
+//	int x, y, z;
+//	for (x = 0; x < 9; x++)
+//	{
+//		for (y = 0; y < 9 - x; y++)
+//			if (score[y] > score[y + 1])
+//			{
+//				z = score[y];
+//				score[y] = score[y + 1];
+//				score[y + 1] = z;
+//			}
+//	}
+//	printf("考试成绩降序如下:\n");
+//	for (y = 0; y < 10; y++)
+//	{
+//		printf("%d ", score[y]);
+//	}
+//	printf("\n\n");
+//	return 0;
+//
+//}
+//
+//int main()
+//{
+//	int i, sum = 0, max, min, m, x, y, z;
+//	int score[10] = { 67,98,75,63,82,79,81,91,66,84 };
+//	for (i = 0; i < 10; i++)
+//	{
+//		sum += score[i];
+//		if (score[i] > score[i + 1])
+//		{
+//			max = score[i];
+//		}
+//		if (score[i] < score[i + 1])
+//		{
+//			min = score[i];
+//		}
+//	}
+//	for (m = 9; m >= 0; m--)
+//	{
+//		for (i = 0; i < 9; i++)
+//		{
+//			if (score[i] > score[i + 1])
+//			{
+//				int temp;
+//				temp = score[i];
+//				score[i] = score[i + 1];
+//				score[i + 1] = temp;
+//			}
+//		}
+//	}
+//	/*for (x = 0; x < 9; x++)
+//	{
+//		for (y = 0; y < 9 - x; y++)
+//			if (score[y] > score[y + 1])
+//			{
+//				z = score[y];
+//				score[y] = score[y + 1];
+//				score[y + 1] = z;
+//			}
+//	}*/
+//	printf("总分:%d\n", sum);
+//	printf("最高分:%d\n", max);
+//	printf("最低分:%d\n", min);
+//	printf("平均分:%.1f\n", sum / 10.0);
+//	for (i = 0; i < 10; i++)
+//	{
+//		printf("%d ", score[i]);
+//	}
+//	d();
+//
+//	return 0;
+//}
+
+
+/* 定义say函数 */
+//void say(char string[])       //数组参数应该怎么写呢？
+//{
+//	printf("%s\n", string);    //打印字符串
+//}
+//
+//int main()
+//{
+//	//定义字符串数组
+//	char string[] = "我在慕课网上学习IT技能！";
+//	say(string);                 //调用say函数输出字符串
+//	return 0;
+//}
+
+//
+
+//
+//int getIndex(int arr[5], int value)
+//{
+//	int i;
+//	int index;
+//	for (i = 0; i < 5; i++)
+//	{
+//		/* 请完善数组查询功能 */
+//		if (arr[i] == value)
+//		{
+//			index = i;
+//			break;
+//		}
+//	}
+//	if (index != i)
+//		index = -1;
+//	
+//	return index;
+//}
+//
+//int main()
+//{
+//	int arr[5] = { 3,12,9,8,6 };
+//	int value = 8;
+//	int index = getIndex(arr, 8);      //这里应该传什么参数呢？
+//	if (index != -1)
+//	{
+//		printf("%d在数组中存在，下标为：%d\n", value, index);
+//	}
+//	else
+//	{
+//		printf("%d在数组中不存在。\n", value);
+//	}
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int a[8] = { 80,90,85,84,70,76,75,83 };
+//	int i, max = 0, min = 100;
+//	for (i = 0; i < 8; i++)
+//	{
+//		if (a[i] > max)
+//		{
+//			max = a[i];
+//		}
+//		else if (a[i] < min)
+//		{
+//			min = a[i];
+//		}
+//	}
+//	printf("最高分为:%d 最低分为:%d", max, min);
+//	return 0;
+//}
 
 
 //void replaceMax(int arr[], int value)
@@ -262,618 +589,618 @@ int main()
  * 小编已将正确代码放在左侧任务的“不知道怎么办”里
  * 小编希望各位童鞋独立完成哦~
  */
-//int count(int age)
-//{
-//	int sum;
-//	if (age == 5)
-//	{
-//		sum = 10;
-//	}
-//	else
-//	{
-//		sum = count(age + 1) + 2;
-//		age++;
-//	}
-//	return sum;
-//}
-//int main()
-//{
-//	int sum= count(1);
-//	
-//	printf("第5个人的年龄是%d岁", sum);
-//	return 0;
-//}
+ //int count(int age)
+ //{
+ //	int sum;
+ //	if (age == 5)
+ //	{
+ //		sum = 10;
+ //	}
+ //	else
+ //	{
+ //		sum = count(age + 1) + 2;
+ //		age++;
+ //	}
+ //	return sum;
+ //}
+ //int main()
+ //{
+ //	int sum= count(1);
+ //	
+ //	printf("第5个人的年龄是%d岁", sum);
+ //	return 0;
+ //}
 
 
-//int main()
-//{
-//	int x, y;
-//	scanf(" % d, % d", &x, &y);
-//	if (x > y)
-//	{
-//		x = y; y = x;
-//	}
-//	else
-//	{
-//		x++; y++;
-//	}
-//	printf(" % d, % d", x, y);
-//}
+ //int main()
+ //{
+ //	int x, y;
+ //	scanf(" % d, % d", &x, &y);
+ //	if (x > y)
+ //	{
+ //		x = y; y = x;
+ //	}
+ //	else
+ //	{
+ //		x++; y++;
+ //	}
+ //	printf(" % d, % d", x, y);
+ //}
 
 
-//int main() 
-//{
-//	float b;
-//	int d;
-//	scanf_s("%f %d", &b,&d);
-//	printf("%f %d", b,d);
-//	return 0;
-//}
+ //int main() 
+ //{
+ //	float b;
+ //	int d;
+ //	scanf_s("%f %d", &b,&d);
+ //	printf("%f %d", b,d);
+ //	return 0;
+ //}
 
 
-//int main() {
-//	srand((unsigned int)time(NULL));
-//	float m = 0 + rand() % 60;
-//	float n = 9 + rand() % 3;
-//	float a = n + m / 100;
-//	float b;
-//	int a1, b1, c, d, end, sum, sam;
-//	printf("公交车始发于%.2f\n", a);
-//	printf("请输入小明开始的时刻与站台 ");
-//	printf("用户输入:");
-//	scanf("%.2f", &b);
-//	scanf("%d", &d);
-//	a1 = a;
-//	b1 = b;
-//	if (b <= a) {
-//		c = a1 - b1;
-//		end = 60 * c + 100 * (a - b - c) + 20 * d;
-//	}
-//	else if (b > a) {
-//		c = b1 - a1;
-//		sum = 60 * c + 100 * (b - a - c);
-//		if (sum <= 20 * d)
-//			end = 20 * d - sum;
-//		else if (sum > 20 * d) {
-//			if (sum <= 70)
-//				end = 70 - sum + 20 * d;
-//			else if (sum > 70) {
-//				sam = sum - (sum / 70) * 70;
-//				if (sam <= 20 * d)
-//					end = 20 * d - sam;
-//				else
-//					end = 70 - sam + 20 * d;
-//			}
-//		}
-//	}
-//	printf("等待时间是%dmin\n", end);
-//	return 0;
-//}
+ //int main() {
+ //	srand((unsigned int)time(NULL));
+ //	float m = 0 + rand() % 60;
+ //	float n = 9 + rand() % 3;
+ //	float a = n + m / 100;
+ //	float b;
+ //	int a1, b1, c, d, end, sum, sam;
+ //	printf("公交车始发于%.2f\n", a);
+ //	printf("请输入小明开始的时刻与站台 ");
+ //	printf("用户输入:");
+ //	scanf("%.2f", &b);
+ //	scanf("%d", &d);
+ //	a1 = a;
+ //	b1 = b;
+ //	if (b <= a) {
+ //		c = a1 - b1;
+ //		end = 60 * c + 100 * (a - b - c) + 20 * d;
+ //	}
+ //	else if (b > a) {
+ //		c = b1 - a1;
+ //		sum = 60 * c + 100 * (b - a - c);
+ //		if (sum <= 20 * d)
+ //			end = 20 * d - sum;
+ //		else if (sum > 20 * d) {
+ //			if (sum <= 70)
+ //				end = 70 - sum + 20 * d;
+ //			else if (sum > 70) {
+ //				sam = sum - (sum / 70) * 70;
+ //				if (sam <= 20 * d)
+ //					end = 20 * d - sam;
+ //				else
+ //					end = 70 - sam + 20 * d;
+ //			}
+ //		}
+ //	}
+ //	printf("等待时间是%dmin\n", end);
+ //	return 0;
+ //}
 
 
 
-//int main()
-//{
-//	//srand((unsigned int)time(NULL));
-//	//int a = rand();
-//	int a;
-//	printf("%d", a);
-//	int random(int 10);
-//	return 0;
-//}
+ //int main()
+ //{
+ //	//srand((unsigned int)time(NULL));
+ //	//int a = rand();
+ //	int a;
+ //	printf("%d", a);
+ //	int random(int 10);
+ //	return 0;
+ //}
 
 
-//int main()
-//{
-//	srand((unsigned int)time(NULL));
-//	int a = rand() % 4 + 9;
-//	int b = rand() % 60;
-//	//int a = 10;
-//	//int b = 55;
-//	int h, m, n;
-//	int t;
-//	printf("公交车始发于%d:", a);
-//	if (a == 12)
-//	{
-//		printf("00\n");
-//	}
-//	else if (b < 10)
-//		printf("0%d\n", b);
-//	else if (b >= 10)
-//		printf("%d\n", b);
-//	
-//	printf("发车时间段为9:00-12:00,请不要输错哦\n");
-//	printf("请输入小明开始的时刻与站台\n");
-//	printf("样例输入:10.00 2\n");
-//	printf("用户输入:");
-//	scanf_s("%d.%d %d", &h, &m, &n);
-//	
-//	if (n == 1)
-//	{
-//		if ((a * 60 + b) >= 650 && ((h * 60 + m) - (a * 60 + b) > 20))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((a * 60 + b) >= 580 && ((h * 60 + m) - (a * 60 + b) > 90))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((a * 60 + b) >= 510 && ((h * 60 + m) - (a * 60 + b) > 160))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((a * 60 + b) >= 440 && ((h * 60 + m) - (a * 60 + b) > 230))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((a * 60 + b) >= 370 && ((h * 60 + m) - (a * 60 + b) > 300))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((a * 60 + b) >= 300 && ((h * 60 + m) - (a * 60 + b) > 370))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if (h == a)
-//		{
-//			b += 20;
-//			if (m > b)
-//			{
-//				t = 70 - (m - b);
-//				printf("等待时间是%dmin\n", t);
-//			}
-//			else
-//			{
-//				t = b - m;
-//				printf("等待时间是%dmin\n", t);
-//			}
-//		}
-//		else if (h == a + 1)
-//		{
-//			if ((h * 60 + m) - (a * 60 + b) < 20)
-//			{
-//				t = (h * 60 + m) - (a * 60 + b);
-//				printf("等待时间是%dmin\n", t);
-//			}
-//			else
-//			{
-//				t = -((h * 60 + m) - (a * 60 + b)) + 90;
-//				printf("等待时间是%dmin\n", t);
-//			}
-//		}
-//		else if (h == a + 2)
-//		{
-//			if ((h * 60 + m) - (a * 60 + b) < 90)
-//			{
-//				t = (a * 60 + b) + 90 - (h * 60 + m);
-//				printf("等待时间是%dmin\n", t);
-//			}
-//			else
-//			{
-//				t = (a * 60 + b) + 160 - (h * 60 + m);
-//				printf("等待时间是%dmin\n", t);
-//			}
-//		}
-//		else if (h < a && a != 12)
-//		{
-//			t = -((h * 60 + m) - (a * 60 + b)) + 20;
-//			printf("等待时间是%dmin\n", t);
-//		}
-//		else if (h < a && a == 12)
-//		{
-//			t = 740 - (h * 60 + m);
-//			printf("等待时间是%dmin\n", t);
-//		}
-//	}
-//	else if (n == 2)
-//	{
-//		if ((a * 60 + b) >= 650 && ((h * 60 + m) - (a * 60 + b) > 40))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((a * 60 + b) >= 580 && ((h * 60 + m) - (a * 60 + b) > 110))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((a * 60 + b) >= 510 && ((h * 60 + m) - (a * 60 + b) > 180))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((a * 60 + b) >= 440 && ((h * 60 + m) - (a * 60 + b) > 250))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((a * 60 + b) >= 370 && ((h * 60 + m) - (a * 60 + b) > 320))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((a * 60 + b) >= 300 && ((h * 60 + m) - (a * 60 + b) > 390))
-//		{
-//			printf("坐不到车车\n");
-//		}
-//		else if ((h * 60 + m) <= (a * 60 + b) && a != 12)
-//		{
-//			t = -((h * 60 + m) - (a * 60 + b)) + 40;
-//			printf("等待时间是%dmin\n", t);
-//		}
-//		else if ((h * 60 + m) <= (a * 60 + b) && a == 12)
-//		{
-//			t = 760 - (h * 60 + m);
-//			printf("等待时间是%dmin\n", t);
-//		}
-//		else if ((h * 60 + m) > (a * 60 + b))
-//		{
-//			if ((h * 60 + m) - (a * 60 + b) <= 40)
-//			{
-//				t = (a * 60 + b) + 40 - (h * 60 + m);
-//				printf("等待时间是%dmin\n", t);
-//			}
-//			else if ((h * 60 + m) - (a * 60 + b) <= 110)
-//			{
-//				t = (a * 60 + b) + 110 - (h * 60 + m);
-//				printf("等待时间是%dmin\n", t);
-//			}
-//			else if ((h * 60 + m) - (a * 60 + b) <= 180)
-//			{
-//				t = (a * 60 + b) + 180 - (h * 60 + m);
-//				printf("等待时间是%dmin\n", t);
-//			}
-//		}
-//	}
-//	return 0;
-//}
+ //int main()
+ //{
+ //	srand((unsigned int)time(NULL));
+ //	int a = rand() % 4 + 9;
+ //	int b = rand() % 60;
+ //	//int a = 10;
+ //	//int b = 55;
+ //	int h, m, n;
+ //	int t;
+ //	printf("公交车始发于%d:", a);
+ //	if (a == 12)
+ //	{
+ //		printf("00\n");
+ //	}
+ //	else if (b < 10)
+ //		printf("0%d\n", b);
+ //	else if (b >= 10)
+ //		printf("%d\n", b);
+ //	
+ //	printf("发车时间段为9:00-12:00,请不要输错哦\n");
+ //	printf("请输入小明开始的时刻与站台\n");
+ //	printf("样例输入:10.00 2\n");
+ //	printf("用户输入:");
+ //	scanf_s("%d.%d %d", &h, &m, &n);
+ //	
+ //	if (n == 1)
+ //	{
+ //		if ((a * 60 + b) >= 650 && ((h * 60 + m) - (a * 60 + b) > 20))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((a * 60 + b) >= 580 && ((h * 60 + m) - (a * 60 + b) > 90))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((a * 60 + b) >= 510 && ((h * 60 + m) - (a * 60 + b) > 160))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((a * 60 + b) >= 440 && ((h * 60 + m) - (a * 60 + b) > 230))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((a * 60 + b) >= 370 && ((h * 60 + m) - (a * 60 + b) > 300))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((a * 60 + b) >= 300 && ((h * 60 + m) - (a * 60 + b) > 370))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if (h == a)
+ //		{
+ //			b += 20;
+ //			if (m > b)
+ //			{
+ //				t = 70 - (m - b);
+ //				printf("等待时间是%dmin\n", t);
+ //			}
+ //			else
+ //			{
+ //				t = b - m;
+ //				printf("等待时间是%dmin\n", t);
+ //			}
+ //		}
+ //		else if (h == a + 1)
+ //		{
+ //			if ((h * 60 + m) - (a * 60 + b) < 20)
+ //			{
+ //				t = (h * 60 + m) - (a * 60 + b);
+ //				printf("等待时间是%dmin\n", t);
+ //			}
+ //			else
+ //			{
+ //				t = -((h * 60 + m) - (a * 60 + b)) + 90;
+ //				printf("等待时间是%dmin\n", t);
+ //			}
+ //		}
+ //		else if (h == a + 2)
+ //		{
+ //			if ((h * 60 + m) - (a * 60 + b) < 90)
+ //			{
+ //				t = (a * 60 + b) + 90 - (h * 60 + m);
+ //				printf("等待时间是%dmin\n", t);
+ //			}
+ //			else
+ //			{
+ //				t = (a * 60 + b) + 160 - (h * 60 + m);
+ //				printf("等待时间是%dmin\n", t);
+ //			}
+ //		}
+ //		else if (h < a && a != 12)
+ //		{
+ //			t = -((h * 60 + m) - (a * 60 + b)) + 20;
+ //			printf("等待时间是%dmin\n", t);
+ //		}
+ //		else if (h < a && a == 12)
+ //		{
+ //			t = 740 - (h * 60 + m);
+ //			printf("等待时间是%dmin\n", t);
+ //		}
+ //	}
+ //	else if (n == 2)
+ //	{
+ //		if ((a * 60 + b) >= 650 && ((h * 60 + m) - (a * 60 + b) > 40))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((a * 60 + b) >= 580 && ((h * 60 + m) - (a * 60 + b) > 110))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((a * 60 + b) >= 510 && ((h * 60 + m) - (a * 60 + b) > 180))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((a * 60 + b) >= 440 && ((h * 60 + m) - (a * 60 + b) > 250))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((a * 60 + b) >= 370 && ((h * 60 + m) - (a * 60 + b) > 320))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((a * 60 + b) >= 300 && ((h * 60 + m) - (a * 60 + b) > 390))
+ //		{
+ //			printf("坐不到车车\n");
+ //		}
+ //		else if ((h * 60 + m) <= (a * 60 + b) && a != 12)
+ //		{
+ //			t = -((h * 60 + m) - (a * 60 + b)) + 40;
+ //			printf("等待时间是%dmin\n", t);
+ //		}
+ //		else if ((h * 60 + m) <= (a * 60 + b) && a == 12)
+ //		{
+ //			t = 760 - (h * 60 + m);
+ //			printf("等待时间是%dmin\n", t);
+ //		}
+ //		else if ((h * 60 + m) > (a * 60 + b))
+ //		{
+ //			if ((h * 60 + m) - (a * 60 + b) <= 40)
+ //			{
+ //				t = (a * 60 + b) + 40 - (h * 60 + m);
+ //				printf("等待时间是%dmin\n", t);
+ //			}
+ //			else if ((h * 60 + m) - (a * 60 + b) <= 110)
+ //			{
+ //				t = (a * 60 + b) + 110 - (h * 60 + m);
+ //				printf("等待时间是%dmin\n", t);
+ //			}
+ //			else if ((h * 60 + m) - (a * 60 + b) <= 180)
+ //			{
+ //				t = (a * 60 + b) + 180 - (h * 60 + m);
+ //				printf("等待时间是%dmin\n", t);
+ //			}
+ //		}
+ //	}
+ //	return 0;
+ //}
 
 
-//int main()
-//{
-//	int a, b, sum;
-//	a = 123;
-//	b = 456;
-//	/*a = 1;
-//	b = 2;*/
-//	sum = a + b;
-//	printf("sum is %d\n", sum);
-//	return 0;
-//}
+ //int main()
+ //{
+ //	int a, b, sum;
+ //	a = 123;
+ //	b = 456;
+ //	/*a = 1;
+ //	b = 2;*/
+ //	sum = a + b;
+ //	printf("sum is %d\n", sum);
+ //	return 0;
+ //}
 
 
-//int main()
-//{
-//	printf("This is a C program.\n");
-//	return 0;
-//}
+ //int main()
+ //{
+ //	printf("This is a C program.\n");
+ //	return 0;
+ //}
 
 
-//int  i, sum;
-//int main()
-//{
-//	
-//	ABC: srand((unsigned int)time(NULL));
-//	int a = rand() % 10 ;
-//	int b = rand() % 10 / 2;
-//	if (b > 4 || b < 1)
-//	{
-//		//printf("错误\n");
-//		goto ABC;
-//	}
-//	//printf("特征数为:");
-//	//scanf_s("%d", &a);
-//	//printf("特征数个数为:");
-//	//scanf_s("%d", &b);
-//	printf("特征数为:%d\n特征数个数为:%d\n", a, b);
-//	if (b > 4 || b < 1)
-//		printf("错误\n");
-//	else if (b == 4)
-//	{
-//		printf("%d%d%d%d,", a, a, a, a);
-//		sum++;
-//	}
-//	else if (b == 3)
-//	{
-//		for(i=1000;i<10000;i++)
-//		if (i / 1000 == a && i % 1000 / 100 == a && i % 100 / 10 == a && i % 10 != a)
-//		{
-//			printf("%d, ", i);
-//			sum++;
-//		}
-//		else if(i / 1000 == a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 == a)
-//		{
-//			printf("%d, ", i);
-//			sum++;
-//		}
-//		else if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 == a)
-//		{
-//			printf("%d, ", i);
-//			sum++;
-//		}
-//		else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 == a && i % 10 == a)
-//		{
-//			printf("%d, ", i);
-//			sum++;
-//		}
-//	}
-//	else if (b == 2)
-//	{
-//		for (i = 1000; i < 10000; i++)
-//		if (i / 1000 == a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 != a)
-//		{
-//			printf("%d, ", i);
-//			sum++;
-//		}
-//		else if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 != a)
-//		{
-//			printf("%d, ", i);
-//			sum++;
-//		}
-//		else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 == a && i % 10 != a)
-//		{
-//			printf("%d, ", i);
-//			sum++;
-//		}
-//		else if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 != a && i % 10 == a)
-//		{
-//			printf("%d, ", i);
-//			sum++;
-//		}
-//		else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 == a)
-//		{
-//			printf("%d, ", i);
-//			sum++;
-//		}
-//		else if (i / 1000 != a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 == a)
-//		{
-//			printf("%d, ", i);
-//			sum++;
-//		}
-//	
-//	}
-//	else if (b == 1)
-//	{
-//		for (i = 1000; i < 10000; i++)
-//			if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 != a && i % 10 != a)
-//			{
-//				printf("%d, ", i);
-//				sum++;
-//			}
-//			else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 != a)
-//			{
-//				printf("%d, ", i);
-//				sum++;
-//			}
-//			else if (i / 1000 != a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 != a)
-//			{
-//				printf("%d, ", i);
-//				sum++;
-//			}
-//			else if (i / 1000 != a && i % 1000 / 100 != a && i % 100 / 10 != a && i % 10 == a)
-//			{
-//				printf("%d, ", i);
-//				sum++;
-//			}
-//	}
-//	printf("中奖个数为%d", sum);
-//	return 0;
-//}
+ //int  i, sum;
+ //int main()
+ //{
+ //	
+ //	ABC: srand((unsigned int)time(NULL));
+ //	int a = rand() % 10 ;
+ //	int b = rand() % 10 / 2;
+ //	if (b > 4 || b < 1)
+ //	{
+ //		//printf("错误\n");
+ //		goto ABC;
+ //	}
+ //	//printf("特征数为:");
+ //	//scanf_s("%d", &a);
+ //	//printf("特征数个数为:");
+ //	//scanf_s("%d", &b);
+ //	printf("特征数为:%d\n特征数个数为:%d\n", a, b);
+ //	if (b > 4 || b < 1)
+ //		printf("错误\n");
+ //	else if (b == 4)
+ //	{
+ //		printf("%d%d%d%d,", a, a, a, a);
+ //		sum++;
+ //	}
+ //	else if (b == 3)
+ //	{
+ //		for(i=1000;i<10000;i++)
+ //		if (i / 1000 == a && i % 1000 / 100 == a && i % 100 / 10 == a && i % 10 != a)
+ //		{
+ //			printf("%d, ", i);
+ //			sum++;
+ //		}
+ //		else if(i / 1000 == a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 == a)
+ //		{
+ //			printf("%d, ", i);
+ //			sum++;
+ //		}
+ //		else if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 == a)
+ //		{
+ //			printf("%d, ", i);
+ //			sum++;
+ //		}
+ //		else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 == a && i % 10 == a)
+ //		{
+ //			printf("%d, ", i);
+ //			sum++;
+ //		}
+ //	}
+ //	else if (b == 2)
+ //	{
+ //		for (i = 1000; i < 10000; i++)
+ //		if (i / 1000 == a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 != a)
+ //		{
+ //			printf("%d, ", i);
+ //			sum++;
+ //		}
+ //		else if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 != a)
+ //		{
+ //			printf("%d, ", i);
+ //			sum++;
+ //		}
+ //		else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 == a && i % 10 != a)
+ //		{
+ //			printf("%d, ", i);
+ //			sum++;
+ //		}
+ //		else if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 != a && i % 10 == a)
+ //		{
+ //			printf("%d, ", i);
+ //			sum++;
+ //		}
+ //		else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 == a)
+ //		{
+ //			printf("%d, ", i);
+ //			sum++;
+ //		}
+ //		else if (i / 1000 != a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 == a)
+ //		{
+ //			printf("%d, ", i);
+ //			sum++;
+ //		}
+ //	
+ //	}
+ //	else if (b == 1)
+ //	{
+ //		for (i = 1000; i < 10000; i++)
+ //			if (i / 1000 == a && i % 1000 / 100 != a && i % 100 / 10 != a && i % 10 != a)
+ //			{
+ //				printf("%d, ", i);
+ //				sum++;
+ //			}
+ //			else if (i / 1000 != a && i % 1000 / 100 == a && i % 100 / 10 != a && i % 10 != a)
+ //			{
+ //				printf("%d, ", i);
+ //				sum++;
+ //			}
+ //			else if (i / 1000 != a && i % 1000 / 100 != a && i % 100 / 10 == a && i % 10 != a)
+ //			{
+ //				printf("%d, ", i);
+ //				sum++;
+ //			}
+ //			else if (i / 1000 != a && i % 1000 / 100 != a && i % 100 / 10 != a && i % 10 == a)
+ //			{
+ //				printf("%d, ", i);
+ //				sum++;
+ //			}
+ //	}
+ //	printf("中奖个数为%d", sum);
+ //	return 0;
+ //}
 
 
-//int main()
-//{
-//	float a;
-//	do 
-//	{
-//		scanf_s("%f", &a);
-//		float b = a / 100;
-//		float c = b * 106.5;
-//		printf("%f", c);
-//	} while (a=100);
-//	return 0;
-//}
+ //int main()
+ //{
+ //	float a;
+ //	do 
+ //	{
+ //		scanf_s("%f", &a);
+ //		float b = a / 100;
+ //		float c = b * 106.5;
+ //		printf("%f", c);
+ //	} while (a=100);
+ //	return 0;
+ //}
 
 
-//int getPeachNumber(n)
-//{
-//	int num;    //定义所剩桃子数
-//	if (n == 10)
-//	{
-//		num = 1;       //递归结束条件
-//	}
-//	else
-//	{
-//		num = getPeachNumber(n+1) * 2 + 2;  //这里是不应该用递归呢？
-//		printf("第%d天所剩桃子%d个\n", n, num); //天数，所剩桃子个数
-//		n++;
-//	}
-//	return num;
-//}
-//int main()
-//{
-//	int num = getPeachNumber(1);
-//	printf("猴子第一天摘了:%d个桃子。\n", num);
-//	return 0;
-//}
+ //int getPeachNumber(n)
+ //{
+ //	int num;    //定义所剩桃子数
+ //	if (n == 10)
+ //	{
+ //		num = 1;       //递归结束条件
+ //	}
+ //	else
+ //	{
+ //		num = getPeachNumber(n+1) * 2 + 2;  //这里是不应该用递归呢？
+ //		printf("第%d天所剩桃子%d个\n", n, num); //天数，所剩桃子个数
+ //		n++;
+ //	}
+ //	return num;
+ //}
+ //int main()
+ //{
+ //	int num = getPeachNumber(1);
+ //	printf("猴子第一天摘了:%d个桃子。\n", num);
+ //	return 0;
+ //}
 
 
-///* Jone算出结果应该怎么写函数？ */
-//int  joneResult(int x, int y, int z)
-//{
-//	int sum = x + y + z;
-//	return sum;//这里是不是应该将sum返回呢？
-//}
-///* Jack没有算出结果只说了一句话是不是应该用无返回值函数？ */
-//void jackResult(int x, int y, int z)
-//{
-//	printf("我算不出来\n");
-//}
-//
-//int main()
-//{
-//	int a, b, c;
-//	a = 10;
-//	b = 20;
-//	c = 30;
-//	//Jone的返回值类型是什么？
-//	int jR = joneResult(a, b, c);
-//	printf("Jone运算结果是：%d\n", jR);
-//	printf("Jack运算结果是：");
-//	//Jack没有算出结果只说了句话，是不是直接调用函数就可以了？
-//	jackResult(a, b, c);
-//	return 0;
-//}
+ ///* Jone算出结果应该怎么写函数？ */
+ //int  joneResult(int x, int y, int z)
+ //{
+ //	int sum = x + y + z;
+ //	return sum;//这里是不是应该将sum返回呢？
+ //}
+ ///* Jack没有算出结果只说了一句话是不是应该用无返回值函数？ */
+ //void jackResult(int x, int y, int z)
+ //{
+ //	printf("我算不出来\n");
+ //}
+ //
+ //int main()
+ //{
+ //	int a, b, c;
+ //	a = 10;
+ //	b = 20;
+ //	c = 30;
+ //	//Jone的返回值类型是什么？
+ //	int jR = joneResult(a, b, c);
+ //	printf("Jone运算结果是：%d\n", jR);
+ //	printf("Jack运算结果是：");
+ //	//Jack没有算出结果只说了句话，是不是直接调用函数就可以了？
+ //	jackResult(a, b, c);
+ //	return 0;
+ //}
 
 
-//int xuexi()
-//{
-//	printf("小明在慕课网上学习\n");
-//}
-//
-//int clas(int i)
-//{
-//	printf("小明在慕课网上已经参与学习了%d门课程",i);
-//}
-//
-//int main()
-//{
-//	xuexi();
-//	clas(1);
-//	return 0;
-//}
+ //int xuexi()
+ //{
+ //	printf("小明在慕课网上学习\n");
+ //}
+ //
+ //int clas(int i)
+ //{
+ //	printf("小明在慕课网上已经参与学习了%d门课程",i);
+ //}
+ //
+ //int main()
+ //{
+ //	xuexi();
+ //	clas(1);
+ //	return 0;
+ //}
 
-//int main()
-//{
-//    /* 定义需要计算的日期 */
-//    int year = 2008;
-//    int month = 8;
-//    int day = 8;
-//    /*
-//     * 请使用switch语句，if...else语句完成本题
-//     * 如有想看小编思路的，可以点击左侧任务中的“不会了怎么办”
-//     * 小编还是希望大家独立完成哦~
-//     */
-//    int days = 0;
-//    switch(month)
-//    {
-//    case 12:
-//        days += 31;
-//    case 11:
-//        days += 30;
-//    case 10:
-//        days += 31;
-//    case 9:
-//        days += 30;
-//    case 8:
-//        days += 31;
-//    case 7:
-//        days += 31;
-//    case 6:
-//        days += 30;
-//    case 5:
-//        days += 31;
-//    case 4:
-//        days += 30;
-//    case 3:
-//        days += 31;
-//    case 2:
-//        if (year % 4 == 0)
-//        {
-//            days += 29;
-//        }
-//        else
-//        {
-//            days += 28;
-//        }
-//    case 1:
-//        days += 31;
-//    }
-//    printf("%d", days + day);
-//    return 0;
-//}
-
-
-//int main()
-//{
-//	int i, j;
-//	for (i = 9; i >= 1; i--)
-//	{
-//		for (j = 1; j <= i; j++)
-//		{
-//			printf("%d*%d=%d ", i, j, j * i);
-//		}
-//		printf("\n");
-//	}
-//	return 0;
-//}
+ //int main()
+ //{
+ //    /* 定义需要计算的日期 */
+ //    int year = 2008;
+ //    int month = 8;
+ //    int day = 8;
+ //    /*
+ //     * 请使用switch语句，if...else语句完成本题
+ //     * 如有想看小编思路的，可以点击左侧任务中的“不会了怎么办”
+ //     * 小编还是希望大家独立完成哦~
+ //     */
+ //    int days = 0;
+ //    switch(month)
+ //    {
+ //    case 12:
+ //        days += 31;
+ //    case 11:
+ //        days += 30;
+ //    case 10:
+ //        days += 31;
+ //    case 9:
+ //        days += 30;
+ //    case 8:
+ //        days += 31;
+ //    case 7:
+ //        days += 31;
+ //    case 6:
+ //        days += 30;
+ //    case 5:
+ //        days += 31;
+ //    case 4:
+ //        days += 30;
+ //    case 3:
+ //        days += 31;
+ //    case 2:
+ //        if (year % 4 == 0)
+ //        {
+ //            days += 29;
+ //        }
+ //        else
+ //        {
+ //            days += 28;
+ //        }
+ //    case 1:
+ //        days += 31;
+ //    }
+ //    printf("%d", days + day);
+ //    return 0;
+ //}
 
 
-//打印正三角形
-//int main()
-//{
-//	int i, j, k;
-//	for (i = 1; i < 5; i++)
-//		{
-//			/* 观察每行的空格数量，补全循环条件 */
-//			for (j = i; j < 5; j++)
-//			{
-//				printf(" ");    //输出空格
-//			}
-//			/* 观察每行*号的数量，补全循环条件 */
-//			for (k = 0; k < i * 2 - 1; k++)
-//			{
-//				printf("*");   //每行输出的*号
-//			}
-//			printf("\n");     //每次循环换行
-//		}
-//	return 0;
-//}
+ //int main()
+ //{
+ //	int i, j;
+ //	for (i = 9; i >= 1; i--)
+ //	{
+ //		for (j = 1; j <= i; j++)
+ //		{
+ //			printf("%d*%d=%d ", i, j, j * i);
+ //		}
+ //		printf("\n");
+ //	}
+ //	return 0;
+ //}
 
 
-//int main()
-//{
-//    /* 小伙伴们：
-//           选择你们认为最合理的循环结构完成功能吧 */
-//    int sum = 0;  //定义计算结果变量sum
-//    int i = 1;    //定义循环数字变量i
-//    int flag = 1; //定义符号状态变量flag
-//
-//    //使用while循环
-//  //  while (i <= 100)
-//  //  {
-//  //      i++;
-//		//flag = -flag;
-//  //      sum += flag * i;
-//  //  }
-//
-//    i = 1;  //重新初始化变量i
-//
-//    //do-while循环
-//  //  do {
-//  //      i++;
-//  //      flag = -flag;
-//		//sum += flag * i;
-//  //  } while (i <= 100);
-//
-//    i = 1;  //重新初始化变量i
-//
-//    //使用for循环
-//    for (i = 1; i <= 100; i++)
-//    {
-//		flag = -flag;
-//		sum += flag * i;
-//        
-//    }
-//    printf("sum=%d\n", -sum);
-//
-//    return 0;
-//}
+ //打印正三角形
+ //int main()
+ //{
+ //	int i, j, k;
+ //	for (i = 1; i < 5; i++)
+ //		{
+ //			/* 观察每行的空格数量，补全循环条件 */
+ //			for (j = i; j < 5; j++)
+ //			{
+ //				printf(" ");    //输出空格
+ //			}
+ //			/* 观察每行*号的数量，补全循环条件 */
+ //			for (k = 0; k < i * 2 - 1; k++)
+ //			{
+ //				printf("*");   //每行输出的*号
+ //			}
+ //			printf("\n");     //每次循环换行
+ //		}
+ //	return 0;
+ //}
 
 
-//int main()
-//{
-//	char c = 'a';
-//	int n = c;        //将c赋值给n
-//	float f = c;      //将c赋值给f
-//	double d = c;    //将c赋值给d
-//	printf("%d\n", n);
-//	printf("%f\n", f);
-//	printf("%lf\n", d);
-//	return 0;
-//}
+ //int main()
+ //{
+ //    /* 小伙伴们：
+ //           选择你们认为最合理的循环结构完成功能吧 */
+ //    int sum = 0;  //定义计算结果变量sum
+ //    int i = 1;    //定义循环数字变量i
+ //    int flag = 1; //定义符号状态变量flag
+ //
+ //    //使用while循环
+ //  //  while (i <= 100)
+ //  //  {
+ //  //      i++;
+ //		//flag = -flag;
+ //  //      sum += flag * i;
+ //  //  }
+ //
+ //    i = 1;  //重新初始化变量i
+ //
+ //    //do-while循环
+ //  //  do {
+ //  //      i++;
+ //  //      flag = -flag;
+ //		//sum += flag * i;
+ //  //  } while (i <= 100);
+ //
+ //    i = 1;  //重新初始化变量i
+ //
+ //    //使用for循环
+ //    for (i = 1; i <= 100; i++)
+ //    {
+ //		flag = -flag;
+ //		sum += flag * i;
+ //        
+ //    }
+ //    printf("sum=%d\n", -sum);
+ //
+ //    return 0;
+ //}
+
+
+ //int main()
+ //{
+ //	char c = 'a';
+ //	int n = c;        //将c赋值给n
+ //	float f = c;      //将c赋值给f
+ //	double d = c;    //将c赋值给d
+ //	printf("%d\n", n);
+ //	printf("%f\n", f);
+ //	printf("%lf\n", d);
+ //	return 0;
+ //}
