@@ -4,200 +4,479 @@
 #include <time.h>
 #include <string.h>
 
-int main() {
-	int i, num, m = 0, seize = 1, pd = 0, p = 10;//定义一些整形变量
-	float all = 0;//定义总和
-	char pFood[256];//定义要输入食品名称字符串
-	char food[50][999] = { "牛奶", "面包", "方便面", "矿泉水", "火腿肠", "溜溜梅", "薄荷糖", "豆腐干", "辣条", "纸巾", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
-	float price[] = { 3, 2, 5, 1, 1.5, 5, 10, 1, 0.5, 1 };
-	//定义食品清单
-	char* book[256] = { "" };//定义购买的字符串数组
-	int num1[256] = { 0 };//定义重复购买数量数组
-	float price1[256] = { 0 };//定义重复购买单价数组
-BEGIN://开始
-	printf("****菜单****\n食品名称   单价（元）\n");
-	for (i = 0; i < p; i++)
-		printf("  %s·······%.2f\n", food[i], price[i]);//菜单遍历
-	printf("输入格式:食品名称 数量\n(结算按1 1)\n");
-	do {
-		pd = 0;//初始化判定
-		scanf("%s %d", &pFood, &num);//输入要买的食品和数量
-		if (strcmp(pFood, "1") == 0 && num == 1)
-			goto COUNT;//如果输入1 1则进入小票结算系统
-		for (i = 0; i < p; i++) {
-			if (strcmp(pFood, food[i]) == 0) {
-				pd = 1;//如果输入的食品在菜单中则判定为真
-				break;
+int main()
+{
+	char str[99];
+	int* p = str;
+	char son[99];
+	int* q = son;
+	int num = 0;
+	int i = 0, all = 0;
+	int j = 0;
+	printf("请输入一个字符串\n");
+	gets(str);
+	printf("请输入一个子串\n");
+	gets(son);
+	int lenson = strlen(son);
+	for (i = 0; (i < lenson) && ((i + strlen(son)) <= strlen(str)); i++, num = 0, lenson++)
+	{
+		for (j = 0; j < strlen(son); i++, j++)
+		{
+			if (*(str+i) == *(son+j))
+			
+			{
+				num++;
 			}
 		}
-		if (pd != 1) {//输入食品在菜单中不存在
-			strcpy(food[p], pFood);//拷贝输入的食品到菜单中
-			printf("这是一个新事物,说出价格让我死心:>\n(输入完价格后请重新输入一遍需要购买的新食品和数量)\n");
-			scanf("%f", &price[p]);//输入价钱
-			p++;//下标右移
-			goto BEGIN;//回到梦开始的地方
-
+		if (num == strlen(son))
+		{
+			all++;
 		}
-		for (i = 0; i < m; i++) {//遍历
-			if (strcmp(pFood, food[i]) == 0) {//如果新输入的食品和前面输入的有重复
-				num1[i] += num;//在前一次基础上加上这次数量
-				all += price[i] * num;//总价也加上
-				goto PT;//进入单次结算
-			}
-		}
-		if (strcmp(pFood, "1") == 0 && num == 1) {//进入小票结算
-		COUNT:
-			printf("小票如下:\n商品名   单价    数量\n");
-			for (m = 0; m < seize - 1; m++) {//遍历
-				printf("%s     %.2f      %d\n", book[m], price1[m], num1[m]);
-			}
-			printf("-----------------------\n总价:    %.2f", all);//输出总价
-			break;
-		}
-		else {//输入的食品为菜单上现有的
-			for (i = 0; i < p; i++) {//遍历
-				if (strcmp(pFood, food[i]) == 0) {//找到价钱对应食品下标
-					book[m] = food[i];//替换进入购买食品数组
-					num1[m] = num;//替换进入购买数量数组
-					price1[m] = price[i];//替换进入购买单价数组
-					m++;//下标加
-					seize++;//种类加
-					all += price[i] * num;//求总和
-					break;
-				}
-			}
-		PT:
-			printf("总价:%.2f\n", all);
-			printf("你还要啥\n");
-			goto BEGIN;//回到梦开始的地方
-		}
-	} while (1);//无限循环
+		i -= strlen(son);
+		j = 0;
+	}
+	printf("该子串共出现了%d次\n", all);
 	return 0;
 }
 
 
+//int main()
+//{
+//	char c = ' ';
+//	
+//	printf("%d\n", c);
+//
+//	return 0;
+//}
 
+
+//int main()
+//{
+//	int i, j;
+//	char str[99];
+//	char* p = str;
+//	gets(str);
+//	int st = strlen(str);
+//	for (i = 0; i < st; i++)
+//	{
+//		if ((int)*(p + i) == 32)
+//		{
+//			for (j = st; j > i; j--)
+//			{
+//				*(p + j + 2) = *(p + j);
+//			}
+//			st += 2;
+//			i += 2;
+//			*(p + j) = '%';
+//			*(p + j + 1) = '2';
+//			*(p + j + 2) = '0';
+//		}
+//	}
+//	printf("%s\n", p);
+//	//printf("%d\n", strlen(str));
+//	//printf("%d\n", (int)*(p + 1));
+//	return 0;
+//}
+
+
+//void hello();
+//void change(int *a,int *b);
+//
+//int main()
+//{
+//	int x, y;
+//	scanf("%d%d", &x, &y);
+//	hello();
+//	change(&x, &y);
+//	printf("%d %d\n", x, y);
+//	return 0;
+//}
+//
+//void hello()
+//{
+//	printf("Hello world!\n");
+//}
+//
+//void change(int* a, int* b)
+//{
+//	int temp = *a;
+//	*a = *b;
+//	*b = temp;
+//
+//}
+
+
+//int main()
+//{
+//	char* skr = "all";
+//	printf("%s", skr);
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int a = 8, b = 9;
+//	char* p = 'a';
+//	int* q = p + 1;
+//	printf("%d\n", *p);
+//	printf("%d\n", *q);
+//	printf("%s\n%x\n", p, &b);
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int a = 8, *p, *q;
+//	p = &a;
+//	printf("p=%x\n", p);
+//	printf("*p=%d\n", *p);
+//	q = p;
+//	printf("q=%x\n", q);
+//	printf("q=%d\n", *q);
+//	return 0;
+//}
+
+
+//void change(int *a, int *b);
+//
+//int main()
+//{
+//	int a, b;
+//	a = 10;
+//	b = 20;
+//	printf("%d %d\n", a, b);
+//	printf("%p %p\n", &a, &b);
+//	change(&a, &b);
+//	printf("%d %d\n", a, b);
+//	printf("%p %p\n", &a, &b);
+//	return 0;
+//}
+//
+//void change(int *a, int *b)
+//{
+//	int temp = *a;
+//	*a = *b;
+//	*b = temp;
+//}
+
+
+//int main()
+//{
+//	int x, y;
+//	for (x = 0, y = 0; (y = 123) && (x < 4); x++)
+//	{
+//		printf("1");
+//	}
+//	return 0;
+// }
+
+
+//int main()
+//{
+//	int a;
+//	for (a = 1; a < 5; a++)
+//	{
+//		a = 2 * a;
+//	}
+//	printf("%d\n", a);
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int i, sum, n;
+//	while (1)
+//	{
+//		i = 1;
+//		sum = 0;
+//		printf("请输入一个数:>");
+//		scanf("%d", &n);
+//		while (i <= n)
+//		{
+//			sum += i;
+//			i++;
+//		}
+//		printf("sum = %d\n", sum);
+//	}	
+//	return 0;
+//}
+
+
+//#define NOT_EXIST -1
+//#define INIT_SIZE 50
+//#define MAX_SIZE 100
+//
+//int dirty[MAX_SIZE] = {0};
+//int e = 0;
+//int size = INIT_SIZE - 1;
+//char word[20];
+//char words[MAX_SIZE][20] = { "just","see","him","your","come","persistent","now","than","like","other","how","then","its","our","two","more","these","want","way","look","first","also","new","because","day","use","no","man","find","here","thing","give","many","well","only","those","tell","very","even","back","any","good","woman","through","us","life","child","work","down","may" };
+//char chinese[MAX_SIZE][300] = { "adj. 公正的,公平的,恰当的 adv. 正好,恰好","vt. 看见,经历,明白,确保,视为,拜访,陪同 vi. 注意,想象,了解,调查 n. 主教教区,主角权限","pron. 他(宾格)","pron. 你的, 你们的","vt. 接近，扮演 vi. 来，发生，达到，进入","adj.执着的；不屈不挠的；坚持不懈的；连绵的","n. 现在,此刻 adj. 现存的, 目前的 adv. 现在,立刻 conj. 既然 abbr. =National Organization of Women 全国妇女组织","conj.比（用于比较级）； 宁愿…而不愿； 除…以外； 一…就 prep.超过； 比","adj. 相似的,同样的 vt. &vi. 喜欢,愿意,想 prep. 像,如同 n. 爱好,类似的人（或物） adv. 大概,和…一样 conj. 如同","adj. 别的,其他的 pron. 另一个人(或事) n. 其他人(或事)"," 	adv. 如何,怎样,多么,多少 conj. 如何,怎样,以...方式 n. 方式","adv. 那么, 当时，然后，于是 adj. 当时的","pron.（it的所有格)它的","pron. 我们的","num. 二，两个","adv.更，更多； 达到或处于更大的范围或程度； 此外，更加 adj.更多的； (many)的比较级； 附加的，额外的 pron.更多的或附加的人或事物 n.更多； 附加，添加","adj.&pron. 这些","n. 缺乏, 贫困, 欲望, 需要, 不足 vi. 要, 希望, 必须 vt. 缺少, 渴望, 喜欢, 应该","	 	n. 方法,道路,方向,作风,(某)方面,程度,状态 adv. 非常,很多,很远 adj. 与路线的中间点相关的,路线的中间点","n. 看, 神色, 样子, 脸色 vi. 看, 注意, 朝着, 好象, 显得 vt. 打量, 注视, 用眼神或脸色表示, 期待","adv. 首先,第一,优先 adj. 第一的, 最早的, 一流的 n. (序数词)第一, 第一个人或事物, (大学学位的)最优等, (汽车, 自行车等的)最低挡","adv. 也, 同样地, 而且","adj. 新的,附加的 adv. 新的","conj. 因为","n. 白天,一天","n. 运用,用法,使用权,适用 vt. 使用,利用,对待 vi. 吸毒","n. 不, 拒绝, 否决票 adj. 没有, 不是, 绝非 adv. 不","n. 男人,人类,人 vt. 为...配备人手,使...振奋","vt. &vi. 发现,感觉到,认为 n. 发现物","adv.在这里； 这时； 在这一点上； （给某人东西或指出某物时说） n.这里 int.喂； 嗨","n. 东西, 事情","vt.& vi.给予； 赠送； 作出 vt.供给； 产生； 举办； （为购买某物或做某事而）支付 vi.（物体）塌下； 让步 n.伸展性，弹性","n. 许多人,许多 adj. 许多的 pron. 许多人或物","n. 井,源泉,楼梯井 adj. 健康的,良好的,适宜的 adv. 很好地,适当地 vi. 涌出 interj. 好吧,啊","adj. 最好的,唯一的,出众的 adv. 仅仅,只有,专门地,唯一地,刚才 conj. 除非, 但是, 然而, 毕竟","pron.&amp;adj. 那些","vt. 告诉,说,知道,认出,计数 vi. 讲述,告发,作证,产生效果","adj. 真正的,完全的,自己的,仅仅的,同一个,特别的 adv. 真的,非常"," 	adj. 平坦的, 偶数的, 相等的 adv. 甚至, 恰好, 正当 v. 使平坦, 相等","adj. 后面的，偏远的, 过时的, 积欠的, 向后的 adv. 向后地 n. 后背, 背脊，后面, 靠背 vt. 后退，支持 vi. 后退","adj. 任何的 adv. 稍 det. 一些 prep. 无论哪个 pron. 任何","n. 善行,好处 adj. 好的,优良的,上等的 [pl.]商品","n. 妇女, 女人","adv. 穿越, 完全 prep. 经过, 穿过, 凭借 adj. 完成的, 完结的; 贯穿的, 直通的","pron. 我们(we的宾格)"," 	n. 生活, 生命, 人生, 生物, 寿命,灵魂, 无期(徒刑) adj. 活的,终身的,生动的","n.小孩，孩子； 幼稚的人； 产物； 弟子","n. 工作,作用,成果,作品,善行,工艺,奏效,建筑工程,工厂,(机械)活动部件 adj. 工作的 vi. 创造, 实现, 有工作, 起作用, 操作, 正常运转, 成功, 产生影响, 逐渐进行, 处理 vt. 造成, 产生, 使运转, 锻造, 奋力达到, 利用","adj. 向下的,降低的,情绪低落,停止运行 adv. 向下的,下跌,在南方 n. 绒毛,汗毛,轻视 prep. 沿着...而下","n. 五月, 青春 v. aux.可能,可以,祝愿" };
+//
+//int isExist(char words[MAX_SIZE][20], char chinese[MAX_SIZE][300], int size, char* word);
+//void search(char words[MAX_SIZE][20], char chinese[MAX_SIZE][300], int size, char* word);
+//void insert(char words[MAX_SIZE][20], char chinese[MAX_SIZE][300], int size, char* word);
+//void change(char words[MAX_SIZE][20], char chinese[MAX_SIZE][300], int size, char* word);
+//void logicDelete(char words[MAX_SIZE][20], char chinese[MAX_SIZE][300], int size, char* word);
+//void menu();
+//
+////了解使用的三个新的函数：strcmp strcpy和memset
 //int main() {
-//	int i, num, m = 0, seize = 1;
-//	int p = 10;
-//	int pd = 0;
-//	float all = 0;
-//	char pFood[256];
-//	char food[99][100] = {"牛奶", "面包", "方便面", "矿泉水", "火腿肠", "溜溜梅", "薄荷糖", "豆腐干", "辣条", "纸巾"};
-//	float price[] = { 3,2,5,1,1.5,5,10,1,0.5,1,0,0,0,0,0,0,0,0,0 };
-//	char* book[256] = { "" };
-//	int num1[256] = { 0 };
-//	float price1[256] = { 0 };
-//	printf("你要啥\n");
-//	do {
-//		scanf("%s %d", &pFood, &num);
-//		pd = 0;
-//		if (strcmp(pFood, "1") == 0 && num == 1) {
-//			printf("小票如下:\n商品名   单价    数量\n");
-//			for (m = 0; m < seize - 1; m++) {
-//				printf("%s     %.2f      %d\n", book[m], price1[m], num1[m]);
-//			}
-//			printf("总价:    %.2f", all);
-//			break;
-//		}
-//		for (i = 0; i < p; i++)
-//		{
-//			if (strcmp(pFood, food[i]) == 0)
-//			{
-//				pd = 1;
-//				break;
-//			}
-//		}
-//		if (pd != 1)
-//		{
-//			strcpy(food[p], pFood);
-//			printf("这是一个新事物,说出价格让我死心:>\n");
-//			scanf("%f", &price[p]);
-//			p++;
-//			goto START;
-//		}
-//		for (i = 0; i < m; i++)
-//		{
-//			if (strcmp(pFood, food[i - 1]) == 0)
-//			{
-//				num1[m] += num;
-//				all += price[i] * num;
-//				goto PT;
-//			}
-//		}
-//		if (strcmp(pFood, "1") != 0 || num != 1) {
-//			START:for (i = 0; i < p; i++) {
-//				if (strcmp(pFood, food[i]) == 0) {
-//					book[m] = food[i];
-//					num1[m] = num;
-//					price1[m] = price[i];
-//					m++;
-//					seize++;
-//					all += price[i] * num;
-//					break;
-//				}
-//			}
-//		PT:printf("总价:%.2f\n", all);
-//			printf("你还要啥(结算按1 1)\n");
-//		}
-//	} while (1);	
-//	return 0;
-//}
-
-
-
-//int out(int j, char chinese[][999]) {
-//	printf("%s", chinese[j]);
-//	return 0;
-//}
-//
-//void link(char in[], int other) {
-//	int i = 0;
-//	int j = 0;
-//	int count = 0;
 //	int choice = 0;
-//
-//	char english[99][10] = { "just", "see", "him", "your", "come", "persistent", "now", "than", "like", "other", "how", "then", "its", "our", "two", "more", "these", "want", "way", "look", "first", "also", "new", "because", "day", "use", "no", "man", "find", "here", "thing", "give", "many", "well", "only", "those", "tell", "very", "even", "back", "any", "good", "woman", "through", "us", "life", "child", "work", "down", "may" };
-//	char chinese[99][999] = { "adj. 公正的,公平的,恰当的 adv. 正好,恰好", "vt. 看见,经历,明白,确保,视为,拜访,陪同 vi. 注意,想象,了解,调查 n. 主教教区,主角权限", "pron. 他(宾格)", "pron. 你的, 你们的", "vt. 接近，扮演 vi. 来，发生，达到，进入", "adj.执着的；不屈不挠的；坚持不懈的；连绵的", "n. 现在,此刻 adj. 现存的, 目前的 adv. 现在,立刻 conj. 既然 abbr. =National Organization of Women 全国妇女组织", "conj.比（用于比较级）； 宁愿…而不愿； 除…以外； 一…就 prep.超过； 比", "adj. 相似的,同样的 vt. &vi. 喜欢,愿意,想 prep. 像,如同 n. 爱好,类似的人（或物） adv. 大概,和…一样 conj. 如同", "adj. 别的,其他的 pron. 另一个人(或事) n. 其他人(或事)", " 	adv. 如何,怎样,多么,多少 conj. 如何,怎样,以...方式 n. 方式", "adv. 那么, 当时，然后，于是 adj. 当时的", "pron.（it的所有格)它的", "pron. 我们的", "num. 二，两个", "adv.更，更多； 达到或处于更大的范围或程度； 此外，更加 adj.更多的； (many)的比较级； 附加的，额外的 pron.更多的或附加的人或事物 n.更多； 附加，添加", "adj.&pron. 这些", "n. 缺乏, 贫困, 欲望, 需要, 不足 vi. 要, 希望, 必须 vt. 缺少, 渴望, 喜欢, 应该", "	 	n. 方法,道路,方向,作风,(某)方面,程度,状态 adv. 非常,很多,很远 adj. 与路线的中间点相关的,路线的中间点", "n. 看, 神色, 样子, 脸色 vi. 看, 注意, 朝着, 好象, 显得 vt. 打量, 注视, 用眼神或脸色表示, 期待", "adv. 首先,第一,优先 adj. 第一的, 最早的, 一流的 n. (序数词)第一, 第一个人或事物, (大学学位的)最优等, (汽车, 自行车等的)最低挡", "adv. 也, 同样地, 而且", "adj. 新的,附加的 adv. 新的", "conj. 因为", "n. 白天,一天", "n. 运用,用法,使用权,适用 vt. 使用,利用,对待 vi. 吸毒", "n. 不, 拒绝, 否决票 adj. 没有, 不是, 绝非 adv. 不", "n. 男人,人类,人 vt. 为...配备人手,使...振奋", "vt. &vi. 发现,感觉到,认为 n. 发现物", "adv.在这里； 这时； 在这一点上； （给某人东西或指出某物时说） n.这里 int.喂； 嗨", "n. 东西, 事情", "vt.& vi.给予； 赠送； 作出 vt.供给； 产生； 举办； （为购买某物或做某事而）支付 vi.（物体）塌下； 让步 n.伸展性，弹性", "n. 许多人,许多 adj. 许多的 pron. 许多人或物", "n. 井,源泉,楼梯井 adj. 健康的,良好的,适宜的 adv. 很好地,适当地 vi. 涌出 interj. 好吧,啊", "adj. 最好的,唯一的,出众的 adv. 仅仅,只有,专门地,唯一地,刚才 conj. 除非, 但是, 然而, 毕竟", "pron.&amp;adj. 那些", "vt. 告诉,说,知道,认出,计数 vi. 讲述,告发,作证,产生效果", "adj. 真正的,完全的,自己的,仅仅的,同一个,特别的 adv. 真的,非常", " 	adj. 平坦的, 偶数的, 相等的 adv. 甚至, 恰好, 正当 v. 使平坦, 相等", "adj. 后面的，偏远的, 过时的, 积欠的, 向后的 adv. 向后地 n. 后背, 背脊，后面, 靠背 vt. 后退，支持 vi. 后退", "adj. 任何的 adv. 稍 det. 一些 prep. 无论哪个 pron. 任何", "n. 善行,好处 adj. 好的,优良的,上等的 [pl.]商品", "n. 妇女, 女人", "adv. 穿越, 完全 prep. 经过, 穿过, 凭借 adj. 完成的, 完结的; 贯穿的, 直通的", "pron. 我们(we的宾格)", " 	n. 生活, 生命, 人生, 生物, 寿命,灵魂, 无期(徒刑) adj. 活的,终身的,生动的", "n.小孩，孩子； 幼稚的人； 产物； 弟子", "n. 工作,作用,成果,作品,善行,工艺,奏效,建筑工程,工厂,(机械)活动部件 adj. 工作的 vi. 创造, 实现, 有工作, 起作用, 操作, 正常运转, 成功, 产生影响, 逐渐进行, 处理 vt. 造成, 产生, 使运转, 锻造, 奋力达到, 利用", "adj. 向下的,降低的,情绪低落,停止运行 adv. 向下的,下跌,在南方 n. 绒毛,汗毛,轻视 prep. 沿着...而下", "n. 五月, 青春 v. aux.可能,可以,祝愿" };
-//	for (j = 0; j < other; j++) {
-//		for (i = 0; i < 10; i++) {
-//			if (in[i] == english[j][i])
-//				count++;
-//
-//			else if (english[j][i] == english[0][8])
-//				count++;
+//	printf("Welcome!\n");
+//	while (1) {
+//		menu();
+//		printf("Please input your choice\n");
+//		scanf("%d", &choice);
+//		switch (choice) {
+//		case 1:
+//			search(words, chinese, size, word);
+//			break;
+//		case 2:
+//			insert(words, chinese, size, word);
+//			size++;
+//			break;
+//		case 3:
+//			change(words, chinese, size, word);
+//			break;
+//		case 4:
+//			logicDelete(words, chinese, size, word);
+//			break;
+//		case 5:
+//			return 0;
+//		default:
+//			printf("Wrong input!\n");
+//			continue;
 //		}
-//		if (count == 10) {
-//			out(j, chinese);
-//			choice += 1;
-//		}
-//		count = 0;
-//	}if (choice == 0) {
-//		printf("程序还不够聪明，愿意教教它吗？\n");
-//		printf("在此输入英文：\n");
-//		scanf("%s", english[other]);
-//		printf("在此输入汉语：\n");
-//		scanf("%s", chinese[other]);
-//		printf("%s", english[50]);
-//		printf("试试程序有没有变聪明");
-//		other++;
 //	}
 //}
 //
+//void menu() {
+//	printf("------------------\n");
+//	printf("\t1.Search words\n");
+//	printf("\t2.Add vocabulary\n");
+//	printf("\t3.Change meaning\n");
+//	printf("\t4.Delete\n");
+//	printf("\t5.Exit\n");
+//}
+//
+//int isExist(char words[MAX_SIZE][20], char chinese[MAX_SIZE][300], int size, char* word) {
+//	for (int i = 0; i < MAX_SIZE; i++) {
+//		if (strcmp(words[i], word) == 0 && dirty[i] != 1) {
+//			printf("Word:\t%s\nChinese:\t%s\n", word, chinese[i]);
+//			return i;
+//		}
+//	}
+//	return NOT_EXIST;
+//}
+//
+//void search(char words[MAX_SIZE][20], char chinese[MAX_SIZE][300], int size, char* word) {
+//	printf("Please input the word\n");
+//	scanf("%s", word);
+//	if (isExist(words, chinese, size, word) == NOT_EXIST)
+//		printf("The word isn't in dictionary!\n");
+//	memset(word, 0, 20);
+//}
+//
+//void insert(char words[MAX_SIZE][20], char chinese[MAX_SIZE][300], int size, char* word) {
+//	printf("Please input the word\n");
+//	scanf("%s", word);
+//	if (isExist(words, chinese, size, word) == NOT_EXIST) {
+//		strcpy(words[size + 1], word);
+//		printf("Please input translation:\n");
+//		scanf("%s", chinese[size + 1]);
+//		printf("Add success!\n");
+//	}
+//	else {
+//		printf("The word is already exist!\n");
+//	}
+//	memset(word, 0, 20);
+//}
+//
+//void change(char words[MAX_SIZE][20], char chinese[MAX_SIZE][300], int size, char* word) {
+//	printf("Please input the word for change:\n");
+//	scanf("%s", word);
+//	e = isExist(words, chinese, size, word);
+//	if (e == NOT_EXIST)
+//		printf("The word not exists,you can add it again!\n");
+//	else {
+//		strcpy(words[e], word);
+//		printf("Please input translation:\n");
+//		scanf("%s", chinese[e]);
+//		printf("Change success!\n");
+//	}
+//	memset(word, 0, 20);
+//}
+//
+//void logicDelete(char words[MAX_SIZE][20], char chinese[MAX_SIZE][300], int size, char* word) {
+//	printf("Please input the word for delete:\n");
+//	scanf("%s", word);
+//	e = isExist(words, chinese, size, word);
+//	if (e == NOT_EXIST)
+//		printf("The word not exists,you can not delete it!\n");
+//	else {
+//		dirty[e] = 1;
+//		printf("Delete success!\n");
+//	}
+//	memset(word, 0, 20);
+//}
+
+
+////8 6 4 2 10 9 7 5 3 1
+//int odd_count = 0;
+//void classify(int* arr, int size);
+//void sortArr(int* arr, int size);
+//void sort(int* arr, int start, int end);
+//void printArr(int* arr, int size);
+//
+//int main()
+//{
+//	int arr[100] = { 0 };
+//	printf("Input 10 numbers for sorting...\n");
+//	int size = 0;
+//	int choice = 0;
+//	for (int i = 0; i < 10; ++i) {
+//		scanf("%d", &arr[i]);
+//		size++;
+//	}
+//	classify(arr, 10);
+//	sortArr(arr, size);
+//	printArr(arr, size);
+//
+//	while (1) {
+//		printf("choose 1 for continue,0 for exit\n");
+//		scanf("%d", &choice);
+//		switch (choice) {
+//		case 1:
+//			printf("Add new number:\n");
+//			scanf("%d", &arr[size++]);
+//			classify(arr, size);
+//			sortArr(arr, size);
+//			printArr(arr, size);
+//			break;
+//		case 0:
+//			return 0;
+//		}
+//	}
+//}
+//
+//void classify(int* arr, int size) {
+//	int begin = 0, end = size;
+//	int temp = 0;
+//	while (begin < end) {
+//		while (arr[begin] % 2 == 1) {
+//			begin++;
+//			odd_count++;
+//		}
+//		while (arr[end] % 2 == 0) {
+//			end--;
+//		}
+//		if (begin < end) {
+//			temp = arr[begin];
+//			arr[begin] = arr[end];
+//			arr[end] = temp;
+//		}
+//	}
+//}
+//
+//void sort(int* arr, int start, int end) {
+//	int temp = 0;
+//	for (int i = start; i < end; ++i) {
+//		for (int j = start; j < end - 1; ++j) {
+//			if (arr[j] > arr[j + 1]) {
+//				temp = arr[j];
+//				arr[j] = arr[j + 1];
+//				arr[j + 1] = temp;
+//			}
+//		}
+//	}
+//}
+//
+//void printArr(int* arr, int size) {
+//	for (int i = 0; i < size; i++) {
+//		printf("%d ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//
+//void sortArr(int* arr, int size) {
+//	sort(arr, 0, odd_count);
+//	sort(arr, odd_count, size);
+//	odd_count = 0;
+//}
+
+
 //int main() {
-//	int i = 0;
-//	int circle = 1;
-//	char in[10];
-//	int other = 50;
+//	int i, num, m = 0, seize = 1, pd = 0, p = 10;//定义一些整形变量
+//	float all = 0;//定义总和
+//	char pFood[256];//定义要输入食品名称字符串
+//	char food[50][999] = { "牛奶", "面包", "方便面", "矿泉水", "火腿肠", "溜溜梅", "薄荷糖", "豆腐干", "辣条", "纸巾", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+//	float price[] = { 3, 2, 5, 1, 1.5, 5, 10, 1, 0.5, 1 };
+//	//定义食品清单
+//	char* book[256] = { "" };//定义购买的字符串数组
+//	int num1[256] = { 0 };//定义重复购买数量数组
+//	float price1[256] = { 0 };//定义重复购买单价数组
+//BEGIN://开始
+//	printf("****菜单****\n食品名称   单价（元）\n");
+//	for (i = 0; i < p; i++)
+//		printf("  %s·······%.2f\n", food[i], price[i]);//菜单遍历
+//	printf("输入格式:食品名称 数量\n(结算按1 1)\n");
 //	do {
-//		circle = 0;
-//		printf("请输入要查询的单词：");
-//		scanf("%s", in);
-//		link(in, other);
-//		printf("\n");
-//		printf("按1再次测试程序聪明否，按2结束测试并摸摸程序的头说真聪明\n");
-//		scanf("%d", &circle);
-//	} while (circle == 1);
+//		pd = 0;//初始化判定
+//		scanf("%s %d", &pFood, &num);//输入要买的食品和数量
+//		if (strcmp(pFood, "1") == 0 && num == 1)
+//			goto COUNT;//如果输入1 1则进入小票结算系统
+//		for (i = 0; i < p; i++) {
+//			if (strcmp(pFood, food[i]) == 0) {
+//				pd = 1;//如果输入的食品在菜单中则判定为真
+//				break;
+//			}
+//		}
+//		if (pd != 1) {//输入食品在菜单中不存在
+//			strcpy(food[p], pFood);//拷贝输入的食品到菜单中
+//			printf("这是一个新事物,说出价格让我死心:>\n(输入完价格后请重新输入一遍需要购买的新食品和数量)\n");
+//			scanf("%f", &price[p]);//输入价钱
+//			p++;//下标右移
+//			goto BEGIN;//回到梦开始的地方
+//
+//		}
+//		for (i = 0; i < m; i++) {//遍历
+//			if (strcmp(pFood, food[i]) == 0) {//如果新输入的食品和前面输入的有重复
+//				num1[i] += num;//在前一次基础上加上这次数量
+//				all += price[i] * num;//总价也加上
+//				goto PT;//进入单次结算
+//			}
+//		}
+//		if (strcmp(pFood, "1") == 0 && num == 1) {//进入小票结算
+//		COUNT:
+//			printf("小票如下:\n商品名   单价    数量\n");
+//			for (m = 0; m < seize - 1; m++) {//遍历
+//				printf("%s     %.2f      %d\n", book[m], price1[m], num1[m]);
+//			}
+//			printf("-----------------------\n总价:    %.2f", all);//输出总价
+//			break;
+//		}
+//		else {//输入的食品为菜单上现有的
+//			for (i = 0; i < p; i++) {//遍历
+//				if (strcmp(pFood, food[i]) == 0) {//找到价钱对应食品下标
+//					book[m] = food[i];//替换进入购买食品数组
+//					num1[m] = num;//替换进入购买数量数组
+//					price1[m] = price[i];//替换进入购买单价数组
+//					m++;//下标加
+//					seize++;//种类加
+//					all += price[i] * num;//求总和
+//					break;
+//				}
+//			}
+//		PT:
+//			printf("总价:%.2f\n", all);
+//			printf("你还要啥\n");
+//			goto BEGIN;//回到梦开始的地方
+//		}
+//	} while (1);//无限循环
 //	return 0;
 //}
 
@@ -271,74 +550,6 @@ BEGIN://开始
 
 //int main()
 //{
-//	int i, n = 0, j = 50;
-//	int pd;
-//	char nword[256], nmean[256];
-//	char word[][256] = { "just", "see", "him", "your", "come", "persistent", "now", "than", "like", "other", "how", "then", "its", "our", "two", "more", "these", "want", "way", "look", "first", "also", "new", "because", "day", "use", "no", "man", "find", "here", "thing", "give", "many", "well", "only", "those", "tell", "very", "even", "back", "any", "good", "woman", "through", "us", "life", "child", "work", "down", "may","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","" };
-//	char mean[][256] = { "adj. 公正的,公平的,恰当的 adv. 正好,恰好", "vt. 看见,经历,明白,确保,视为,拜访,陪同 vi. 注意,想象,了解,调查 n. 主教教区,主角权限", "pron. 他(宾格)", "pron. 你的, 你们的", "vt. 接近，扮演 vi. 来，发生，达到，进入", "adj.执着的；不屈不挠的；坚持不懈的；连绵的", "n. 现在,此刻 adj. 现存的, 目前的 adv. 现在,立刻 conj. 既然 abbr. =National Organization of Women 全国妇女组织", "conj.比（用于比较级）； 宁愿…而不愿； 除…以外； 一…就 prep.超过； 比", "adj. 相似的,同样的 vt. &vi. 喜欢,愿意,想 prep. 像,如同 n. 爱好,类似的人（或物） adv. 大概,和…一样 conj. 如同", "adj. 别的,其他的 pron. 另一个人(或事) n. 其他人(或事)", " 	adv. 如何,怎样,多么,多少 conj. 如何,怎样,以...方式 n. 方式", "adv. 那么, 当时，然后，于是 adj. 当时的", "pron.（it的所有格)它的", "pron. 我们的", "num. 二，两个", "adv.更，更多； 达到或处于更大的范围或程度； 此外，更加 adj.更多的； (many)的比较级； 附加的，额外的 pron.更多的或附加的人或事物 n.更多； 附加，添加", "adj.&pron. 这些", "n. 缺乏, 贫困, 欲望, 需要, 不足 vi. 要, 希望, 必须 vt. 缺少, 渴望, 喜欢, 应该", "	 	n. 方法,道路,方向,作风,(某)方面,程度,状态 adv. 非常,很多,很远 adj. 与路线的中间点相关的,路线的中间点", "n. 看, 神色, 样子, 脸色 vi. 看, 注意, 朝着, 好象, 显得 vt. 打量, 注视, 用眼神或脸色表示, 期待", "adv. 首先,第一,优先 adj. 第一的, 最早的, 一流的 n. (序数词)第一, 第一个人或事物, (大学学位的)最优等, (汽车, 自行车等的)最低挡", "adv. 也, 同样地, 而且", "adj. 新的,附加的 adv. 新的", "conj. 因为", "n. 白天,一天", "n. 运用,用法,使用权,适用 vt. 使用,利用,对待 vi. 吸毒", "n. 不, 拒绝, 否决票 adj. 没有, 不是, 绝非 adv. 不", "n. 男人,人类,人 vt. 为...配备人手,使...振奋", "vt. &vi. 发现,感觉到,认为 n. 发现物", "adv.在这里； 这时； 在这一点上； （给某人东西或指出某物时说） n.这里 int.喂； 嗨", "n. 东西, 事情", "vt.& vi.给予； 赠送； 作出 vt.供给； 产生； 举办； （为购买某物或做某事而）支付 vi.（物体）塌下； 让步 n.伸展性，弹性", "n. 许多人,许多 adj. 许多的 pron. 许多人或物", "n. 井,源泉,楼梯井 adj. 健康的,良好的,适宜的 adv. 很好地,适当地 vi. 涌出 interj. 好吧,啊", "adj. 最好的,唯一的,出众的 adv. 仅仅,只有,专门地,唯一地,刚才 conj. 除非, 但是, 然而, 毕竟", "pron.&amp;adj. 那些", "vt. 告诉,说,知道,认出,计数 vi. 讲述,告发,作证,产生效果", "adj. 真正的,完全的,自己的,仅仅的,同一个,特别的 adv. 真的,非常", " 	adj. 平坦的, 偶数的, 相等的 adv. 甚至, 恰好, 正当 v. 使平坦, 相等", "adj. 后面的，偏远的, 过时的, 积欠的, 向后的 adv. 向后地 n. 后背, 背脊，后面, 靠背 vt. 后退，支持 vi. 后退", "adj. 任何的 adv. 稍 det. 一些 prep. 无论哪个 pron. 任何", "n. 善行,好处 adj. 好的,优良的,上等的 [pl.]商品", "n. 妇女, 女人", "adv. 穿越, 完全 prep. 经过, 穿过, 凭借 adj. 完成的, 完结的; 贯穿的, 直通的", "pron. 我们(we的宾格)", " 	n. 生活, 生命, 人生, 生物, 寿命,灵魂, 无期(徒刑) adj. 活的,终身的,生动的", "n.小孩，孩子； 幼稚的人； 产物； 弟子", "n. 工作,作用,成果,作品,善行,工艺,奏效,建筑工程,工厂,(机械)活动部件 adj. 工作的 vi. 创造, 实现, 有工作, 起作用, 操作, 正常运转, 成功, 产生影响, 逐渐进行, 处理 vt. 造成, 产生, 使运转, 锻造, 奋力达到, 利用", "adj. 向下的,降低的,情绪低落,停止运行 adv. 向下的,下跌,在南方 n. 绒毛,汗毛,轻视 prep. 沿着...而下", "n. 五月, 青春 v. aux.可能,可以,祝愿" ,"", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ,"", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ,"", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
-//	printf("扣1开卷，扣0摆烂\n");
-//	n = 0;
-//	scanf("%d", &pd);
-//	if (pd == 1)
-//	{
-//		do
-//		{
-//			n = 0;
-//			printf("请输入英文单词(按0摆烂):>");
-//			scanf("%s", &nword);
-//			if (strcmp(nword, "0") == 0)
-//			{
-//				printf("恭喜你度过摆烂的一生\n");
-//				break;
-//			}
-//			for (i = 0; i < j; i++)
-//			{
-//				if (strcmp(nword, word[i]) == 0)
-//				{
-//					printf("该单词意思为:>");
-//					printf("%s\n", mean[i]);
-//					n = 1;
-//					break;
-//				}
-//			}
-//			if (n != 1)
-//			{
-//			RESTART:
-//				strcpy(word[j], nword);
-//				printf("这是一个新单词，请输入意思:>");
-//				scanf("%s", &nmean);
-//				strcpy(mean[j], nmean);
-//				printf("请输入英文单词:>");
-//				scanf("%s", &nword);
-//				for (i = 0; i < j+1; i++) {
-//					if (strcmp(nword, word[i]) == 0)
-//					{
-//						printf("该单词意思为:>");
-//						printf("%s\n", mean[i]);
-//						n = 1;
-//						j++;
-//						break;
-//					}
-//				}
-//				if (n != 1)
-//				{
-//					j++;
-//					goto RESTART;
-//				}
-//			}
-//		} while (1);
-//	}
-//	else if (pd == 0)
-//	{
-//		printf("恭喜你度过摆烂的一生\n");
-//	}
-//	return 0;
-//}
-
-
-
-//int main()
-//{
 //	int a, b;
 //	int x;
 //	float y;
@@ -355,130 +566,6 @@ BEGIN://开始
 //	z = 'A';
 //	//printf("Value is:%-10.4f", 32.6784728);
 //	//printf("%d %f %c", x, y, z);
-//	return 0;
-//}
-
-
-//int main() {
-//	int i, num, m = 0, seize = 1, p, q, r = 0, j;
-//	float all = 0;
-//	char pFood[256];
-//	char* food[] = { "牛奶", "面包", "方便面", "矿泉水", "火腿肠", "溜溜梅", "薄荷糖", "豆腐干", "辣条", "纸巾" };
-//	float price[] = { 3, 2, 5, 1, 1.5, 5, 10, 1, 0.5, 1 };
-//	char book[][256] = { "" };
-//	int num1[256] = { 0 };
-//	float price1[256] = { 0 };
-//	char repeatFood[256];
-//	float repeatPrice[256];
-//	int repeatNum[256] = { 0 };
-//	printf("你要啥\n");
-//	do {
-//		scanf("%s %d", &pFood, &num);
-//		if (strcmp(pFood, "1") == 0 && num == 1) {
-//			printf("小票如下:\n商品名   单价    数量\n");
-//			for (j = m; j > 0; j--) {
-//				for (p = 0; p < m+1; p++) {
-//
-//					if (strcmp(book[p], book[j]) == 0)
-//					{
-//						printf("same number have %s\n", book[j]);
-//						//for (;;r++)
-//						//{
-//						//	strcpy(repeatFood[r] , book[j]);
-//						//	break;
-//						//}
-//					}
-//				}
-//			}
-//			
-//							
-//			/*repeatPrice[r] = price1[q];
-//			repeatNum[r] += num1[q];*/
-//							
-//			for (r = 0; r < seize - 1; r++) {
-//				printf("%s     %.2f      %d\n", repeatFood[r], price1[r], num1[r]);
-//			}
-//			printf("总价:    %.2f", all);
-//			break;
-//		}
-//		else {
-//			for (i = 0; i < 10; i++) {
-//				if (strcmp(pFood, food[i]) == 0) {
-//					all += price[i] * num;
-//					printf("总价:%.2f\n", all);
-//					strcpy(book[m],food[i]);
-//					num1[m] = num;
-//					price1[m] = price[i];
-//					m++;
-//					seize++;
-//					break;
-//				}
-//			}
-//			printf("你还要啥(结算按1 1)\n");
-//		}
-//		//printf("%d\n", num);
-//	} while (1);
-//	return 0;
-//}
-
-
-//int main() {
-//	char* arr1[100] = { "just", "see", "him", "your", "come", "persistent", "now", "than", "like", "other", "how", "then", "its", "our", "two", "more", "these", "want", "way", "look", "first", "also", "new", "because", "day", "use", "no", "man", "find", "here", "thing", "give", "many", "well", "only", "those", "tell", "very", "even", "back", "any", "good", "woman", "through", "us", "life", "child", "work", "down", "may" };
-//	char* arr2[100] = { "adj. 公正的,公平的,恰当的 adv. 正好,恰好", "vt. 看见,经历,明白,确保,视为,拜访,陪同 vi. 注意,想象,了解,调查 n. 主教教区,主角权限", "pron. 他(宾格)", "pron. 你的, 你们的", "vt. 接近，扮演 vi. 来，发生，达到，进入", "adj.执着的；不屈不挠的；坚持不懈的；连绵的", "n. 现在,此刻 adj. 现存的, 目前的 adv. 现在,立刻 conj. 既然 abbr. =National Organization of Women 全国妇女组织", "conj.比（用于比较级）； 宁愿…而不愿； 除…以外； 一…就 prep.超过； 比", "adj. 相似的,同样的 vt. &vi. 喜欢,愿意,想 prep. 像,如同 n. 爱好,类似的人（或物） adv. 大概,和…一样 conj. 如同", "adj. 别的,其他的 pron. 另一个人(或事) n. 其他人(或事)", " 	adv. 如何,怎样,多么,多少 conj. 如何,怎样,以...方式 n. 方式", "adv. 那么, 当时，然后，于是 adj. 当时的", "pron.（it的所有格)它的", "pron. 我们的", "num. 二，两个", "adv.更，更多； 达到或处于更大的范围或程度； 此外，更加 adj.更多的； (many)的比较级； 附加的，额外的 pron.更多的或附加的人或事物 n.更多； 附加，添加", "adj.&pron. 这些", "n. 缺乏, 贫困, 欲望, 需要, 不足 vi. 要, 希望, 必须 vt. 缺少, 渴望, 喜欢, 应该", "	 	n. 方法,道路,方向,作风,(某)方面,程度,状态 adv. 非常,很多,很远 adj. 与路线的中间点相关的,路线的中间点", "n. 看, 神色, 样子, 脸色 vi. 看, 注意, 朝着, 好象, 显得 vt. 打量, 注视, 用眼神或脸色表示, 期待", "adv. 首先,第一,优先 adj. 第一的, 最早的, 一流的 n. (序数词)第一, 第一个人或事物, (大学学位的)最优等, (汽车, 自行车等的)最低挡", "adv. 也, 同样地, 而且", "adj. 新的,附加的 adv. 新的", "conj. 因为", "n. 白天,一天", "n. 运用,用法,使用权,适用 vt. 使用,利用,对待 vi. 吸毒", "n. 不, 拒绝, 否决票 adj. 没有, 不是, 绝非 adv. 不", "n. 男人,人类,人 vt. 为...配备人手,使...振奋", "vt. &vi. 发现,感觉到,认为 n. 发现物", "adv.在这里； 这时； 在这一点上； （给某人东西或指出某物时说） n.这里 int.喂； 嗨", "n. 东西, 事情", "vt.& vi.给予； 赠送； 作出 vt.供给； 产生； 举办； （为购买某物或做某事而）支付 vi.（物体）塌下； 让步 n.伸展性，弹性", "n. 许多人,许多 adj. 许多的 pron. 许多人或物", "n. 井,源泉,楼梯井 adj. 健康的,良好的,适宜的 adv. 很好地,适当地 vi. 涌出 interj. 好吧,啊", "adj. 最好的,唯一的,出众的 adv. 仅仅,只有,专门地,唯一地,刚才 conj. 除非, 但是, 然而, 毕竟", "pron.&amp;adj. 那些", "vt. 告诉,说,知道,认出,计数 vi. 讲述,告发,作证,产生效果", "adj. 真正的,完全的,自己的,仅仅的,同一个,特别的 adv. 真的,非常", " 	adj. 平坦的, 偶数的, 相等的 adv. 甚至, 恰好, 正当 v. 使平坦, 相等", "adj. 后面的，偏远的, 过时的, 积欠的, 向后的 adv. 向后地 n. 后背, 背脊，后面, 靠背 vt. 后退，支持 vi. 后退", "adj. 任何的 adv. 稍 det. 一些 prep. 无论哪个 pron. 任何", "n. 善行,好处 adj. 好的,优良的,上等的 [pl.]商品", "n. 妇女, 女人", "adv. 穿越, 完全 prep. 经过, 穿过, 凭借 adj. 完成的, 完结的; 贯穿的, 直通的", "pron. 我们(we的宾格)", " 	n. 生活, 生命, 人生, 生物, 寿命,灵魂, 无期(徒刑) adj. 活的,终身的,生动的", "n.小孩，孩子； 幼稚的人； 产物； 弟子", "n. 工作,作用,成果,作品,善行,工艺,奏效,建筑工程,工厂,(机械)活动部件 adj. 工作的 vi. 创造, 实现, 有工作, 起作用, 操作, 正常运转, 成功, 产生影响, 逐渐进行, 处理 vt. 造成, 产生, 使运转, 锻造, 奋力达到, 利用", "adj. 向下的,降低的,情绪低落,停止运行 adv. 向下的,下跌,在南方 n. 绒毛,汗毛,轻视 prep. 沿着...而下", "n. 五月, 青春 v. aux.可能,可以,祝愿" };
-//	char word[999];
-//	int i;
-//	int index;
-//LOOP:
-//	index = -1;
-//	printf("请输入需要查询的英文单词:");
-//	scanf("%s", &word);
-//	for (i = 0; i <= 60; i++) {
-//		if (strcmp(word, arr1[i]) == 0) {
-//			index = i;
-//			break;
-//		}
-//		else {
-//			index = -1;
-//		}
-//	}
-//	if (index != -1) {
-//		printf("中文释义为%s", arr2[i]);
-//		printf("\n");
-//		goto LOOP;
-//	}
-//	else {
-//		printf("字典中暂无此单词");
-//		printf("\n");
-//		goto LOOP;
-//	}
-//	return 0;
-//}
-
-
-//int main() {
-//	char* arr1[100] = { "just", "see", "him", "your", "come", "persistent", "now", "than", "like", "other", "how", "then", "its", "our", "two", "more", "these", "want", "way", "look", "first", "also", "new", "because", "day", "use", "no", "man", "find", "here", "thing", "give", "many", "well", "only", "those", "tell", "very", "even", "back", "any", "good", "woman", "through", "us", "life", "child", "work", "down", "may" };
-//	char* arr2[100] = { "adj. 公正的,公平的,恰当的 adv. 正好,恰好", "vt. 看见,经历,明白,确保,视为,拜访,陪同 vi. 注意,想象,了解,调查 n. 主教教区,主角权限", "pron. 他(宾格)", "pron. 你的, 你们的", "vt. 接近，扮演 vi. 来，发生，达到，进入", "adj.执着的；不屈不挠的；坚持不懈的；连绵的", "n. 现在,此刻 adj. 现存的, 目前的 adv. 现在,立刻 conj. 既然 abbr. =National Organization of Women 全国妇女组织", "conj.比（用于比较级）； 宁愿…而不愿； 除…以外； 一…就 prep.超过； 比", "adj. 相似的,同样的 vt. &vi. 喜欢,愿意,想 prep. 像,如同 n. 爱好,类似的人（或物） adv. 大概,和…一样 conj. 如同", "adj. 别的,其他的 pron. 另一个人(或事) n. 其他人(或事)", " 	adv. 如何,怎样,多么,多少 conj. 如何,怎样,以...方式 n. 方式", "adv. 那么, 当时，然后，于是 adj. 当时的", "pron.（it的所有格)它的", "pron. 我们的", "num. 二，两个", "adv.更，更多； 达到或处于更大的范围或程度； 此外，更加 adj.更多的； (many)的比较级； 附加的，额外的 pron.更多的或附加的人或事物 n.更多； 附加，添加", "adj.&pron. 这些", "n. 缺乏, 贫困, 欲望, 需要, 不足 vi. 要, 希望, 必须 vt. 缺少, 渴望, 喜欢, 应该", "	 	n. 方法,道路,方向,作风,(某)方面,程度,状态 adv. 非常,很多,很远 adj. 与路线的中间点相关的,路线的中间点", "n. 看, 神色, 样子, 脸色 vi. 看, 注意, 朝着, 好象, 显得 vt. 打量, 注视, 用眼神或脸色表示, 期待", "adv. 首先,第一,优先 adj. 第一的, 最早的, 一流的 n. (序数词)第一, 第一个人或事物, (大学学位的)最优等, (汽车, 自行车等的)最低挡", "adv. 也, 同样地, 而且", "adj. 新的,附加的 adv. 新的", "conj. 因为", "n. 白天,一天", "n. 运用,用法,使用权,适用 vt. 使用,利用,对待 vi. 吸毒", "n. 不, 拒绝, 否决票 adj. 没有, 不是, 绝非 adv. 不", "n. 男人,人类,人 vt. 为...配备人手,使...振奋", "vt. &vi. 发现,感觉到,认为 n. 发现物", "adv.在这里； 这时； 在这一点上； （给某人东西或指出某物时说） n.这里 int.喂； 嗨", "n. 东西, 事情", "vt.& vi.给予； 赠送； 作出 vt.供给； 产生； 举办； （为购买某物或做某事而）支付 vi.（物体）塌下； 让步 n.伸展性，弹性", "n. 许多人,许多 adj. 许多的 pron. 许多人或物", "n. 井,源泉,楼梯井 adj. 健康的,良好的,适宜的 adv. 很好地,适当地 vi. 涌出 interj. 好吧,啊", "adj. 最好的,唯一的,出众的 adv. 仅仅,只有,专门地,唯一地,刚才 conj. 除非, 但是, 然而, 毕竟", "pron.&amp;adj. 那些", "vt. 告诉,说,知道,认出,计数 vi. 讲述,告发,作证,产生效果", "adj. 真正的,完全的,自己的,仅仅的,同一个,特别的 adv. 真的,非常", " 	adj. 平坦的, 偶数的, 相等的 adv. 甚至, 恰好, 正当 v. 使平坦, 相等", "adj. 后面的，偏远的, 过时的, 积欠的, 向后的 adv. 向后地 n. 后背, 背脊，后面, 靠背 vt. 后退，支持 vi. 后退", "adj. 任何的 adv. 稍 det. 一些 prep. 无论哪个 pron. 任何", "n. 善行,好处 adj. 好的,优良的,上等的 [pl.]商品", "n. 妇女, 女人", "adv. 穿越, 完全 prep. 经过, 穿过, 凭借 adj. 完成的, 完结的; 贯穿的, 直通的", "pron. 我们(we的宾格)", " 	n. 生活, 生命, 人生, 生物, 寿命,灵魂, 无期(徒刑) adj. 活的,终身的,生动的", "n.小孩，孩子； 幼稚的人； 产物； 弟子", "n. 工作,作用,成果,作品,善行,工艺,奏效,建筑工程,工厂,(机械)活动部件 adj. 工作的 vi. 创造, 实现, 有工作, 起作用, 操作, 正常运转, 成功, 产生影响, 逐渐进行, 处理 vt. 造成, 产生, 使运转, 锻造, 奋力达到, 利用", "adj. 向下的,降低的,情绪低落,停止运行 adv. 向下的,下跌,在南方 n. 绒毛,汗毛,轻视 prep. 沿着...而下", "n. 五月, 青春 v. aux.可能,可以,祝愿" };
-//	char word[999];
-//	int i;
-//	int index;
-//	printf("请输入需要查询的英文单词:");
-//	scanf("%s", &word);
-//	for (i = 0; i <= 100; i++) {
-//		if (strcmp(word, arr1[i]) == 0) {
-//			index = i;
-//			printf("中文释义为%s", arr2[i]);
-//			break;
-//		}
-//		else {
-//			index = -1;
-//		}
-//	}
-//	if (index != -1) {
-//		printf("中文释义为%s", arr2[i]);
-//	}
-//	else {
-//		printf("字典中暂无次单词");
-//	}
 //	return 0;
 //}
 
@@ -566,75 +653,6 @@ BEGIN://开始
 //		}
 //		else if (pd1 == 0)
 //		{
-//			break;
-//		}
-//	} while (1);
-//	return 0;
-//}
-
-
-//int main()
-//{
-//	int i, n = 0;
-//	int pd;
-//	char nword[256], nmean[256];
-//	char* word[] = { "just","see","him","your","come","persistent","now","than","like","other","how","then","its","our","two","more","these","want","way","look","first","also","new","because","day","use","no","man","find","here","thing","give","many","well","only","those","tell","very","even","back","any","good","woman","through","us","life","child","work","down","may" };
-//	char* mean[] = { "adj. 公正的,公平的,恰当的 adv. 正好,恰好","vt. 看见,经历,明白,确保,视为,拜访,陪同 vi. 注意,想象,了解,调查 n. 主教教区,主角权限","pron. 他(宾格)","pron. 你的, 你们的","vt. 接近，扮演 vi. 来，发生，达到，进入","adj.执着的；不屈不挠的；坚持不懈的；连绵的","n. 现在,此刻 adj. 现存的, 目前的 adv. 现在,立刻 conj. 既然 abbr. =National Organization of Women 全国妇女组织","conj.比（用于比较级）； 宁愿…而不愿； 除…以外； 一…就 prep.超过； 比","adj. 相似的,同样的 vt. &vi. 喜欢,愿意,想 prep. 像,如同 n. 爱好,类似的人（或物） adv. 大概,和…一样 conj. 如同","adj. 别的,其他的 pron. 另一个人(或事) n. 其他人(或事)"," 	adv. 如何,怎样,多么,多少 conj. 如何,怎样,以...方式 n. 方式","adv. 那么, 当时，然后，于是 adj. 当时的","pron.（it的所有格)它的","pron. 我们的","num. 二，两个","adv.更，更多； 达到或处于更大的范围或程度； 此外，更加 adj.更多的； (many)的比较级； 附加的，额外的 pron.更多的或附加的人或事物 n.更多； 附加，添加","adj.&pron. 这些","n. 缺乏, 贫困, 欲望, 需要, 不足 vi. 要, 希望, 必须 vt. 缺少, 渴望, 喜欢, 应该","	 	n. 方法,道路,方向,作风,(某)方面,程度,状态 adv. 非常,很多,很远 adj. 与路线的中间点相关的,路线的中间点","n. 看, 神色, 样子, 脸色 vi. 看, 注意, 朝着, 好象, 显得 vt. 打量, 注视, 用眼神或脸色表示, 期待","adv. 首先,第一,优先 adj. 第一的, 最早的, 一流的 n. (序数词)第一, 第一个人或事物, (大学学位的)最优等, (汽车, 自行车等的)最低挡","adv. 也, 同样地, 而且","adj. 新的,附加的 adv. 新的","conj. 因为","n. 白天,一天","n. 运用,用法,使用权,适用 vt. 使用,利用,对待 vi. 吸毒","n. 不, 拒绝, 否决票 adj. 没有, 不是, 绝非 adv. 不","n. 男人,人类,人 vt. 为...配备人手,使...振奋","vt. &vi. 发现,感觉到,认为 n. 发现物","adv.在这里； 这时； 在这一点上； （给某人东西或指出某物时说） n.这里 int.喂； 嗨","n. 东西, 事情","vt.& vi.给予； 赠送； 作出 vt.供给； 产生； 举办； （为购买某物或做某事而）支付 vi.（物体）塌下； 让步 n.伸展性，弹性","n. 许多人,许多 adj. 许多的 pron. 许多人或物","n. 井,源泉,楼梯井 adj. 健康的,良好的,适宜的 adv. 很好地,适当地 vi. 涌出 interj. 好吧,啊","adj. 最好的,唯一的,出众的 adv. 仅仅,只有,专门地,唯一地,刚才 conj. 除非, 但是, 然而, 毕竟","pron.&amp;adj. 那些","vt. 告诉,说,知道,认出,计数 vi. 讲述,告发,作证,产生效果","adj. 真正的,完全的,自己的,仅仅的,同一个,特别的 adv. 真的,非常"," 	adj. 平坦的, 偶数的, 相等的 adv. 甚至, 恰好, 正当 v. 使平坦, 相等","adj. 后面的，偏远的, 过时的, 积欠的, 向后的 adv. 向后地 n. 后背, 背脊，后面, 靠背 vt. 后退，支持 vi. 后退","adj. 任何的 adv. 稍 det. 一些 prep. 无论哪个 pron. 任何","n. 善行,好处 adj. 好的,优良的,上等的 [pl.]商品","n. 妇女, 女人","adv. 穿越, 完全 prep. 经过, 穿过, 凭借 adj. 完成的, 完结的; 贯穿的, 直通的","pron. 我们(we的宾格)"," 	n. 生活, 生命, 人生, 生物, 寿命,灵魂, 无期(徒刑) adj. 活的,终身的,生动的","n.小孩，孩子； 幼稚的人； 产物； 弟子","n. 工作,作用,成果,作品,善行,工艺,奏效,建筑工程,工厂,(机械)活动部件 adj. 工作的 vi. 创造, 实现, 有工作, 起作用, 操作, 正常运转, 成功, 产生影响, 逐渐进行, 处理 vt. 造成, 产生, 使运转, 锻造, 奋力达到, 利用","adj. 向下的,降低的,情绪低落,停止运行 adv. 向下的,下跌,在南方 n. 绒毛,汗毛,轻视 prep. 沿着...而下","n. 五月, 青春 v. aux.可能,可以,祝愿" };
-//START:
-//	do
-//	{
-//		printf("扣1开卷，扣0摆烂\n");
-//		n = 0;
-//		scanf("%d", &pd);
-//		if (pd == 1)
-//		{
-//			printf("请输入英文单词:>");
-//			scanf("%s", &nword);
-//			for (i = 0; i < 50; i++)
-//			{
-//				if (strcmp(nword, word[i]) == 0)
-//				{
-//					printf("该单词意思为:>");
-//					printf("%s\n", mean[i]);
-//					n = 1;
-//					break;
-//				}
-//			}
-//			if (n != 1)
-//			{
-//				char nword2[256];
-//			RESTART:
-//				printf("这是一个新单词，请输入意思:>");
-//				scanf("%s", &nmean);
-//				printf("请输入英文单词:>");
-//				scanf("%s", &nword2);
-//				for (i = 0; i < 50; i++)
-//				{
-//					if (strcmp(nword2, word[i]) == 0)
-//					{
-//						printf("该单词意思为:>");
-//						printf("%s\n", mean[i]);
-//						n = 1;
-//						break;
-//					}
-//				}
-//				if (strcmp(nword2, nword) == 0)
-//				{
-//					printf("该单词意思为:>");
-//					printf("%s\n", nmean);
-//					goto START;
-//				}
-//				else if (strcmp(nword2, nword) != 0)
-//				{
-//					strcpy(nword, nword2);
-//					goto RESTART;
-//				}
-//			}
-//		}
-//		
-//		else if (pd == 0)
-//		{
-//			printf("恭喜你度过摆烂的一生\n");
 //			break;
 //		}
 //	} while (1);
