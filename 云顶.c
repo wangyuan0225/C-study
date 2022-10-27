@@ -4,40 +4,43 @@
 #include <time.h>
 #include <string.h>
 
-int main()
-{
-	char str[99];
-	int* p = str;
-	char son[99];
-	int* q = son;
-	int num = 0;
-	int i = 0, all = 0;
-	int j = 0;
-	printf("请输入一个字符串\n");
-	gets(str);
-	printf("请输入一个子串\n");
-	gets(son);
-	int lenson = strlen(son);
-	for (i = 0; (i < lenson) && ((i + strlen(son)) <= strlen(str)); i++, num = 0, lenson++)
-	{
-		for (j = 0; j < strlen(son); i++, j++)
-		{
-			if (*(str+i) == *(son+j))
-			
-			{
-				num++;
-			}
-		}
-		if (num == strlen(son))
-		{
-			all++;
-		}
-		i -= strlen(son);
-		j = 0;
-	}
-	printf("该子串共出现了%d次\n", all);
-	return 0;
-}
+
+
+
+//int main()
+//{
+//	char str[99];
+//	int* p = str;
+//	char son[99];
+//	int* q = son;
+//	int num = 0;
+//	int i = 0, all = 0;
+//	int j = 0;
+//	printf("请输入一个字符串\n");
+//	gets(str);
+//	printf("请输入一个子串\n");
+//	gets(son);
+//	int lenson = strlen(son);
+//	for (i = 0; (i < lenson) && ((i + strlen(son)) <= strlen(str)); i++, num = 0, lenson++)
+//	{
+//		for (j = 0; j < strlen(son); i++, j++)
+//		{
+//			if (*(str+i) == *(son+j))
+//			
+//			{
+//				num++;
+//			}
+//		}
+//		if (num == strlen(son))
+//		{
+//			all++;
+//		}
+//		i -= strlen(son);
+//		j = 0;
+//	}
+//	printf("该子串共出现了%d次\n", all);
+//	return 0;
+//}
 
 
 //int main()
