@@ -1,7 +1,2 @@
 ﻿  云顶.c
-D:\C++文档\yundingshuyuan\云顶.c(17,2): warning C4013: “gets”未定义；假设外部返回 int
-D:\C++文档\yundingshuyuan\云顶.c(35,8): warning C4267: “-=”: 从“size_t”转换到“int”，可能丢失数据
-D:\C++文档\yundingshuyuan\云顶.c(10,7): warning C4133: “初始化”: 从“char *”到“int *”的类型不兼容
-D:\C++文档\yundingshuyuan\云顶.c(12,7): warning C4133: “初始化”: 从“char *”到“int *”的类型不兼容
-D:\C++文档\yundingshuyuan\云顶.c(20,15): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
   云顶书院学习.vcxproj -> D:\C++文档\yundingshuyuan\x64\Debug\云顶书院学习.exe

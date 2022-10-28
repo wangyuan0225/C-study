@@ -4,7 +4,40 @@
 #include <time.h>
 #include <string.h>
 
-
+int main()
+{
+	int m = 0, n = 0;
+	char c;
+	while (c=getchar()!= '\n')
+	{
+		if (c >= 'A' && c <= 'Z') m++;
+		if (c >= 'a' && c <= 'z') n++;
+	}
+	//int a = 1, b = 2, c = 3, t;
+	//while (a < b < c)
+	//{
+	//	t = a;
+	//	a = b;
+	//	b = t;
+	//	c--;
+	//}
+	//printf("%d,%d,%d", a, b, c);
+	//int i = 100;
+	//while (1)
+	//{
+	//	i = i % 100 + 1;
+	//	if (i >= 100)
+	//		break;
+	//}
+	//for (;;);
+	return 0;
+	//int k = 2;
+	//while (k = 1)
+	//{
+	//	printf("%d", k);
+	//	k--;
+	//}
+}
 
 
 //int main()
