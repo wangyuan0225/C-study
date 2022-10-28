@@ -4,40 +4,107 @@
 #include <time.h>
 #include <string.h>
 
-int main()
-{
-	int m = 0, n = 0;
-	char c;
-	while (c=getchar()!= '\n')
-	{
-		if (c >= 'A' && c <= 'Z') m++;
-		if (c >= 'a' && c <= 'z') n++;
-	}
-	//int a = 1, b = 2, c = 3, t;
-	//while (a < b < c)
-	//{
-	//	t = a;
-	//	a = b;
-	//	b = t;
-	//	c--;
-	//}
-	//printf("%d,%d,%d", a, b, c);
-	//int i = 100;
-	//while (1)
-	//{
-	//	i = i % 100 + 1;
-	//	if (i >= 100)
-	//		break;
-	//}
-	//for (;;);
-	return 0;
-	//int k = 2;
-	//while (k = 1)
-	//{
-	//	printf("%d", k);
-	//	k--;
-	//}
-}
+
+
+//int main()
+//{
+//	int x, y;
+//	char op;
+//	scanf("%d%c%d", &x, &op, &y);
+//	switch (op)
+//	{
+//	case '+':printf("%d %c %d = %d", x, op, y, x + y); break;
+//	case '-':printf("%d %c %d = %d", x, op, y, x - y); break;
+//	case '*':printf("%d %c %d = %d", x, op, y, x * y); break;
+//	case '/':printf("%d %c %d = %d", x, op, y, x / y); break;
+//	default:
+//		break;
+//	}
+//	return 0;
+//}
+
+
+
+//int main()
+//{
+//	int grade, shi;
+//	scanf("%d", &grade);
+//	shi = grade / 10;
+//	switch (shi)
+//	{
+//	case 0:
+//	case 1:
+//	case 2:
+//	case 3:
+//	case 4:
+//	case 5:printf("不合格"); break;
+//	case 6:printf("合格"); break;
+//	case 7:printf("中等"); break;
+//	case 8:printf("良好"); break;
+//	case 9:
+//	case 10:printf("优秀"); break;
+//	default:
+//		break;
+//	}
+//	return 0;
+//}
+
+
+
+//int main()
+//{
+//	int grade;
+//	scanf("%d", &grade);
+//	if (grade >= 0 && grade <= 100)
+//		if (grade < 60)
+//			printf("不合格");
+//		else if (grade < 70)
+//			printf("合格");
+//			else if (grade < 80)
+//				printf("中等");
+//				else if (grade < 90)
+//					printf("良好");
+//					else printf("优秀");
+//	else 
+//		printf("输入数据不符合要求");
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int m = 0, n = 0;
+//	char c;
+//	while (c=getchar()!= '\n')
+//	{
+//		if (c >= 'A' && c <= 'Z') m++;
+//		if (c >= 'a' && c <= 'z') n++;
+//	}
+//	//int a = 1, b = 2, c = 3, t;
+//	//while (a < b < c)
+//	//{
+//	//	t = a;
+//	//	a = b;
+//	//	b = t;
+//	//	c--;
+//	//}
+//	//printf("%d,%d,%d", a, b, c);
+//	//int i = 100;
+//	//while (1)
+//	//{
+//	//	i = i % 100 + 1;
+//	//	if (i >= 100)
+//	//		break;
+//	//}
+//	//for (;;);
+//	return 0;
+//	//int k = 2;
+//	//while (k = 1)
+//	//{
+//	//	printf("%d", k);
+//	//	k--;
+//	//}
+//}
 
 
 //int main()
