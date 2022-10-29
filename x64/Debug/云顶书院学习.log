@@ -1,3 +1,6 @@
 ﻿  云顶.c
-D:\C++文档\yundingshuyuan\云顶.c(9,9): warning C4778: “printf”: 格式字符串“%40”未终止
+D:\C++文档\yundingshuyuan\云顶.c(13,2): warning C4013: “gets”未定义；假设外部返回 int
+D:\C++文档\yundingshuyuan\云顶.c(31,9): warning C4267: “-=”: 从“size_t”转换到“int”，可能丢失数据
+D:\C++文档\yundingshuyuan\云顶.c(15,13): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\C++文档\yundingshuyuan\云顶.c(16,13): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
   云顶书院学习.vcxproj -> D:\C++文档\yundingshuyuan\x64\Debug\云顶书院学习.exe

@@ -3,7 +3,71 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <math.h>
 
+
+
+
+//int i, n, s, gen;
+//char mchuan[99];
+//char zchuan[99];
+//int main()
+//{
+//	gets(mchuan);
+//	gets(zchuan);
+//	int zlen = strlen(zchuan);
+//	int mlen = strlen(mchuan);
+//	for (i = 0; (i<zlen) && (((i + strlen(zchuan)) <= mlen));i++, zlen++)
+//	{
+//		for (n = 0; n < strlen(zchuan); n++,i++)
+//		{
+//			if (*(mchuan + i) == *(zchuan + n))
+//			{
+//				s++;
+//			}
+//		}
+//		if (s == strlen(zchuan))
+//		{
+//			gen++;
+//		}
+//		s = 0;
+//		i -= strlen(zchuan);
+//	}
+//	printf("%d\n", gen);
+//	return 0;
+//}
+
+
+
+
+//int main()
+//{
+//	int n, a;
+//	int result = 0;
+//	printf("计算a + aa + aaa + … + aa…a（n 个 a）\n");
+//	printf("请输入n值>>");
+//	scanf("%d", &n);
+//	printf("请输入a值>>");
+//	scanf("%d", &a);
+//	for (int i = 0; i < n; i++)
+//	{
+//		result += pow(a, i + 1);
+//	}
+//	printf("=%d\n", result);
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int result = 0;
+//	for (int i = 1; i < 100; i+=2)
+//	{
+//		result += i * (i + 1) * (i + 2);
+//	}
+//	printf("%d", result);
+//	return 0;
+//}
 
 
 //int main()
@@ -22,7 +86,6 @@
 //	}
 //	return 0;
 //}
-
 
 
 //int main()
