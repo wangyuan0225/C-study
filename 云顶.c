@@ -5,6 +5,129 @@
 #include <string.h>
 #include <math.h>
 
+//int  main()
+//{
+//	int	red = 3, white = 3, black = 6;
+//	for (int i = 2; i <= black; i++)
+//	{
+//
+//	}
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int n = 0;
+//	for (int a = 1;; a++)
+//	{
+//		if (a % 2 == 1 && a % 3 == 2 && a % 5 == 4 && a % 6 == 5 && a % 7 == 0)
+//		{
+//			printf("%d\n", a);
+//			break;
+//		}
+//	}
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int n, a;
+//	int result = 0;
+//	printf("计算a + aa + aaa + … + aa…a（n 个 a）\n");
+//	printf("请输入n值>>");
+//	scanf("%d", &n);
+//	printf("请输入a值>>");
+//	scanf("%d", &a);
+//	for (int j = 1; j <= n; j++)
+//	{
+//		int all = 0;
+//		for (int i = 0; i < j; i++)
+//		{
+//			all += a * pow(10, i);
+//		}
+//		result += all;
+//	}
+//	printf("%d", result);
+//	return 0;
+//}
+
+
+int jiecheng(int n);
+
+int main()
+{
+	float x;
+	while (1)
+	{
+		printf("sin(x)请输入x>>");
+		scanf("%f", &x);
+		float all = 0;
+		int n = 1;
+		int fuhao = 1;
+		for (int i = 1; ; i += 2, fuhao *= (-1), n++)
+		{
+			all += fuhao * pow(x, i) / jiecheng(i);
+			if (x / jiecheng(i) < 0.00001)
+			{
+				break;
+			}
+		}
+		printf("%f %d\n", all, n);
+	}
+	return 0;
+}
+
+int jiecheng(int n)
+{
+	int result = 1;
+	for (int i = 1; i <= n; i++)
+	{
+		result *= i;
+	}
+	return result;
+}
+
+
+//int main()
+//{
+//	float e = 2.325465;
+//	printf("%f\n", fabs(e));
+//	printf("%f\n", e);
+//	return 0;
+//}
+
+
+//int jiecheng(int n);
+//
+//int main()
+//{
+//	int n;
+//	float e = 1;
+//	for (n = 1;; n++)
+//	{
+//		e += 1.0 / jiecheng(n);
+//		if (fabs(1.0 / jiecheng(n)) < 0.00001)
+//		{
+//			break;
+//		}
+//	}
+//	printf("e的近似值为>>%f\n", e);
+//	printf("共累加了%d项\n", n + 1);
+//	return 0;
+//}
+//
+//int jiecheng(int n)
+//{
+//	int result = 1;
+//	for (int i = 1; i <= n; i++)
+//	{
+//		result *= i;
+//	}
+//	return result;
+//}
+
 
 
 
