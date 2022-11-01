@@ -54,40 +54,40 @@
 //}
 
 
-int jiecheng(int n);
-
-int main()
-{
-	float x;
-	while (1)
-	{
-		printf("sin(x)ÇëÊäÈëx>>");
-		scanf("%f", &x);
-		float all = 0;
-		int n = 1;
-		int fuhao = 1;
-		for (int i = 1; ; i += 2, fuhao *= (-1), n++)
-		{
-			all += fuhao * pow(x, i) / jiecheng(i);
-			if (x / jiecheng(i) < 0.00001)
-			{
-				break;
-			}
-		}
-		printf("%f %d\n", all, n);
-	}
-	return 0;
-}
-
-int jiecheng(int n)
-{
-	int result = 1;
-	for (int i = 1; i <= n; i++)
-	{
-		result *= i;
-	}
-	return result;
-}
+//int jiecheng(int n);
+//
+//int main()
+//{
+//	float x;
+//	while (1)
+//	{
+//		printf("sin(x)ÇëÊäÈëx>>");
+//		scanf("%f", &x);
+//		float all = 0;
+//		int n = 1;
+//		int fuhao = 1;
+//		for (int i = 1; ; i += 2, fuhao *= (-1), n++)
+//		{
+//			all += fuhao * pow(x, i) / jiecheng(i);
+//			if (x / jiecheng(i) < 0.00001)
+//			{
+//				break;
+//			}
+//		}
+//		printf("%f %d\n", all, n);
+//	}
+//	return 0;
+//}
+//
+//int jiecheng(int n)
+//{
+//	int result = 1;
+//	for (int i = 1; i <= n; i++)
+//	{
+//		result *= i;
+//	}
+//	return result;
+//}
 
 
 //int main()
