@@ -5,137 +5,229 @@
 #include <string.h>
 #include <math.h>
 
-struct record {
-	char id;
-	int score;
-	int time;
+
+//创建结构体
+struct studentsFile {
+	char id[15];
+	char name[20];
+	char sex[9];
+	int age;
+	char class[100];
 };
 
-int  main()
-{
-	srand((unsigned int)time(NULL));
-	while (1)
-	{
-		struct record nRecord[400];
-		printf("请输入ID号:>");
-		char id[99];
-		char sign[5] = { '+','-','*','/','+' };
-		char* test;
-		char yunsuan[10] = { '0' };
-		int choice;
-		int first[10];
-		int second[10];
-		int answer[10];
-		int idAnswer[10];
-		int true = 0;
-		int pd = 1;
-		int t1, t2;
-		char* pid = id;
-		FILE* fp = fopen("record.txt", "a");
-		scanf("%s", id);
-		if ((*pid >= 'A' && *pid <= 'Z') && (*(pid + 1) >= 'A' && *(pid + 1) <= 'Z') && (*(pid + 2) >= '0' && *(pid + 2) <= '9') && (*(pid + 3) >= '0' && *(pid + 3) <= '9') && (*(pid + 4) >= '0' && *(pid + 4) <= '9') && (*(pid + 5) >= '0' && *(pid + 5) <= '9'))
-		{
-			printf("请选择:\n(1)开始测试\n(2)检查分数\n(3)退出\n");
-			scanf("%d", &choice);
-			switch (choice)
-			{
-			case 1:
-				t1 = time(NULL);
-				for (int i = 0; i < 10; )
-				{
-					test = sign + rand() % 4;
-					if (i > 0 && *test == yunsuan[i - 1])
-					{
-						yunsuan[i] = *(test + 1);
-					}
-					else
-					{
-						yunsuan[i] = *(test);
-					}
-					if (yunsuan[i] == '+')
-					{
-						do {
-							first[i] = rand() % 100 + 1;
-							second[i] = rand() % 100 + 1;
-							answer[i] = first[i] + second[i];
-						} while (first[i] + second[i] > 100);
-						printf("%d%c%d=", first[i], yunsuan[i], second[i]);
-						scanf("%d", &idAnswer[i]);
-					}
-					if (yunsuan[i] == '-')
-					{
-						do {
-							first[i] = rand() % 100 + 1;
-							second[i] = rand() % 100 + 1;
-							answer[i] = first[i] - second[i];
-						} while (answer[i] >= 100 || answer[i] < 0);
-						printf("%d%c%d=", first[i], yunsuan[i], second[i]);
-						scanf("%d", &idAnswer[i]);
-					}
-					if (yunsuan[i] == '*')
-					{
-						do {
-							first[i] = rand() % 100 + 1;
-							second[i] = rand() % 100 + 1;
-							answer[i] = first[i] * second[i];
-						} while (answer[i] > 100);
-						printf("%d%c%d=", first[i], yunsuan[i], second[i]);
-						scanf("%d", &idAnswer[i]);
-					}
-					if (yunsuan[i] == '/')
-					{
-						do 
-						{
-							first[i] = rand() % 100 + 1;
-							second[i] = rand() % 100 + 1;
-							answer[i] = first[i] / second[i];
-						} while (first[i] % second[i] != 0);
-						printf("%d%c%d=", first[i], yunsuan[i], second[i]);
-						scanf("%d", &idAnswer[i]);
-					}
-					if (answer[i] == idAnswer[i])
-					{
-						true++;
-					}
-					i++;
+int main() {
+	struct studentsFile students[400];//定义一个400学生的结构体
+	FILE* fp = fopen("students.txt", "r");//打开students文件，只读
+	int pd = 0;//判定学生是否存在
+	for (int i = 0; i < 400; i++) {
+		fscanf(fp, "%[^,],%[^,],%[^,],%d,%s\n", &students[i].id, &students[i].name, &students[i].sex, &students[i].age,
+			&students[i].class);//参考了CSDN上如何讲文件内容复制到结构体中
+	}
+	while (1) {//循环
+		printf("i.查询模式1：根据姓名或学号查询学生信息\nii.查询模式2：根据年龄范围查询学生信息\niii.查询模式3：根据班级查询学生信息\n其他:退出查询\n");
+		printf("请输入查询模式:>");//提示语
+		int mod;
+		scanf("%d", &mod);//输入查询模式
+		switch (mod) {
+		case 1://进入模式1
+			pd = 0;//初始化判定
+			printf("样例1： 输入： 张三\n输出： 张三, 2017002871, 男, 17, 大数据1702\n张三, 2015009321, 男, 22, 信计1502\n");
+			printf("样例2： 输入： 2017009876\n输出： 小路, 2016009876, 男, 20, 大数据1701\n");
+			printf("请输入姓名或学号:>");//提示语
+			char pf[99];
+			scanf("%s", pf);//输入姓名或者学号
+			for (int i = 0; i < 401; i++) {//遍历结构体数组
+				if ((strcmp(students[i].name, pf) == 0)
+					|| (strcmp(students[i].id, pf) == 0)) {//判定所输入的学号或者姓名在文件中是否存在
+					printf("%s %s %s %d %s\n", students[i].id, students[i].name, students[i].sex, students[i].age,
+						students[i].class);//打印对应的学生
+					pd = 1;//改变判定值，说明学生信息存在
 				}
-				t2 = time(NULL);
-				printf("问题 | 正确答案 | 你的答案\n");
-				for (int i = 0; i < 10; i++)
-				{
-					printf("%d%c%d=|   %d    |     %d     \n", first[i], yunsuan[i], second[i], answer[i], idAnswer[i]);
-				}
-				
-				printf("成绩:%d0分\n用时:%ds\n", true, t2 - t1);
-				fprintf(fp, "%s %d %d\n", id, true, t2 - t1);
-				fclose(fp);
-				break;
-			case 2:
-				for (int i = 0; i < 400; i++) 
-				{
-					fscanf(fp, "%[^ ] %[^ ] %d\n", &nRecord[i].id, &nRecord[i].score, &nRecord[i].time);
-				}
-				for (int i = 0; i < 400; i++)
-				{
-					if (strcmp(nRecord[i].id, id) == 0)
-					{
-						printf("%s %d0 %ds\n", nRecord[i].id, nRecord[i].score, nRecord[i].time);
-					}
-				}
-				break;
-			case 3:
-				return 0;
-			default:
+			}
+			if (pd == 0)//判定值未改变，学生信息不存在
+				printf("查无此人\n");
+			printf("------------------------------------------\n");
+			break;//回到查询模式
+		case 2://进入模式2
+			pd = 0;//初始化判定
+			printf("样例1： 输入： 18 20 \n输出： 李四, 2017001765, 女, 18, 软件工程1712\n小路, 2016009876, 男, 20, 大数据1701\n大张伟, 2014002715, 男, 19, 计算机1402\n");
+			printf("请输入两个数确定年龄范围，要求第一个数小于等于第二个数:>");//提示语
+			int age[2];
+			scanf("%d%d", &age[0], &age[1]);//输入两个数字确定奈年龄范围
+			if (age[0] > age[1]) {//规定第一个数小于等于第二个数
+				printf("输入错误");
 				break;
 			}
-		}
-		else
-		{
-			printf("输入错误，请重新输入\n");
+			else {
+				for (int i = 0; i < 401; i++) {//遍历结构体数组
+					if (students[i].age >= age[0] && students[i].age <= age[1]) {
+						printf("%s %s %s %d %s\n", students[i].id, students[i].name, students[i].sex, students[i].age, students[i].class);
+						pd = 1;//改变学生信息存在判定
+					}
+				}
+				if (pd == 0)//学生信息不存在
+					printf("查无此人\n");
+			}
+			printf("------------------------------------------\n");
+			break;
+		case 3:
+			pd = 0;
+			printf("样例1： 输入： 大数据1702\n输出： 张三, 2017002871, 男, 17, 大数据1702\n王璐丹, 2017009479, 女, 22, 大数据1702\n");
+			printf("请输入专业班级:>");
+			char class[99];
+			scanf("%s", class);//输入班级
+			for (int i = 0; i < 401; i++) {//作用同Case1和2
+				if ((strcmp(students[i].class, class) == 0) || (strcmp(students[i].class, class) == 0)) {
+					printf("%s %s %s %d %s\n", students[i].id, students[i].name, students[i].sex, students[i].age, students[i].class);
+					pd = 1;
+				}
+			}
+			if (pd == 0)//作用同case1&2
+				printf("查无此人\n");
+			printf("------------------------------------------\n");
+			break;
+		default://输入其他数，退出查询
+			printf("退出查询\n");
+			return 0;
 		}
 	}
+	fclose(fp);//关闭文件
 	return 0;
 }
+
+
+
+//struct record {
+//	char id;
+//	int score;
+//	int time;
+//};
+//
+//int  main()
+//{
+//	srand((unsigned int)time(NULL));
+//	while (1)
+//	{
+//		struct record nRecord[400];
+//		printf("请输入ID号:>");
+//		char id[99];
+//		char sign[5] = { '+','-','*','/','+' };
+//		char* test;
+//		char yunsuan[10] = { '0' };
+//		int choice;
+//		int first[10];
+//		int second[10];
+//		int answer[10];
+//		int idAnswer[10];
+//		int true = 0;
+//		int pd = 1;
+//		int t1, t2;
+//		char* pid = id;
+//		FILE* fp = fopen("record.txt", "a");
+//		scanf("%s", id);
+//		if ((*pid >= 'A' && *pid <= 'Z') && (*(pid + 1) >= 'A' && *(pid + 1) <= 'Z') && (*(pid + 2) >= '0' && *(pid + 2) <= '9') && (*(pid + 3) >= '0' && *(pid + 3) <= '9') && (*(pid + 4) >= '0' && *(pid + 4) <= '9') && (*(pid + 5) >= '0' && *(pid + 5) <= '9'))
+//		{
+//			printf("请选择:\n(1)开始测试\n(2)检查分数\n(3)退出\n");
+//			scanf("%d", &choice);
+//			switch (choice)
+//			{
+//			case 1:
+//				t1 = time(NULL);
+//				for (int i = 0; i < 10; )
+//				{
+//					test = sign + rand() % 4;
+//					if (i > 0 && *test == yunsuan[i - 1])
+//					{
+//						yunsuan[i] = *(test + 1);
+//					}
+//					else
+//					{
+//						yunsuan[i] = *(test);
+//					}
+//					if (yunsuan[i] == '+')
+//					{
+//						do {
+//							first[i] = rand() % 100 + 1;
+//							second[i] = rand() % 100 + 1;
+//							answer[i] = first[i] + second[i];
+//						} while (first[i] + second[i] > 100);
+//						printf("%d%c%d=", first[i], yunsuan[i], second[i]);
+//						scanf("%d", &idAnswer[i]);
+//					}
+//					if (yunsuan[i] == '-')
+//					{
+//						do {
+//							first[i] = rand() % 100 + 1;
+//							second[i] = rand() % 100 + 1;
+//							answer[i] = first[i] - second[i];
+//						} while (answer[i] >= 100 || answer[i] < 0);
+//						printf("%d%c%d=", first[i], yunsuan[i], second[i]);
+//						scanf("%d", &idAnswer[i]);
+//					}
+//					if (yunsuan[i] == '*')
+//					{
+//						do {
+//							first[i] = rand() % 100 + 1;
+//							second[i] = rand() % 100 + 1;
+//							answer[i] = first[i] * second[i];
+//						} while (answer[i] > 100);
+//						printf("%d%c%d=", first[i], yunsuan[i], second[i]);
+//						scanf("%d", &idAnswer[i]);
+//					}
+//					if (yunsuan[i] == '/')
+//					{
+//						do 
+//						{
+//							first[i] = rand() % 100 + 1;
+//							second[i] = rand() % 100 + 1;
+//							answer[i] = first[i] / second[i];
+//						} while (first[i] % second[i] != 0);
+//						printf("%d%c%d=", first[i], yunsuan[i], second[i]);
+//						scanf("%d", &idAnswer[i]);
+//					}
+//					if (answer[i] == idAnswer[i])
+//					{
+//						true++;
+//					}
+//					i++;
+//				}
+//				t2 = time(NULL);
+//				printf("问题 | 正确答案 | 你的答案\n");
+//				for (int i = 0; i < 10; i++)
+//				{
+//					printf("%d%c%d=|   %d    |     %d     \n", first[i], yunsuan[i], second[i], answer[i], idAnswer[i]);
+//				}
+//				
+//				printf("成绩:%d0分\n用时:%ds\n", true, t2 - t1);
+//				fprintf(fp, "%s %d %d\n", id, true, t2 - t1);
+//				fclose(fp);
+//				break;
+//			case 2:
+//				for (int i = 0; i < 400; i++) 
+//				{
+//					fscanf(fp, "%[^ ] %[^ ] %d\n", &nRecord[i].id, &nRecord[i].score, &nRecord[i].time);
+//				}
+//				for (int i = 0; i < 400; i++)
+//				{
+//					if (strcmp(nRecord[i].id, id) == 0)
+//					{
+//						printf("%s %d0 %ds\n", nRecord[i].id, nRecord[i].score, nRecord[i].time);
+//					}
+//				}
+//				break;
+//			case 3:
+//				return 0;
+//			default:
+//				break;
+//			}
+//		}
+//		else
+//		{
+//			printf("输入错误，请重新输入\n");
+//		}
+//	}
+//	return 0;
+//}
 
 
 

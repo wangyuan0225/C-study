@@ -1,9 +1,2 @@
 ﻿  云顶.c
-D:\C++文档\yundingshuyuan\云顶.c(43,10): warning C4244: “=”: 从“time_t”转换到“int”，可能丢失数据
-D:\C++文档\yundingshuyuan\云顶.c(102,10): warning C4244: “=”: 从“time_t”转换到“int”，可能丢失数据
-D:\C++文档\yundingshuyuan\云顶.c(116,17): warning C4477: “fscanf”: 格式字符串“%[^ ]”需要类型“char *”的参数，但可变参数 2 拥有了类型“int *”
-D:\C++文档\yundingshuyuan\云顶.c(120,30): warning C4047: “函数”:“const char *”与“char”的间接级别不同
-D:\C++文档\yundingshuyuan\云顶.c(120,27): warning C4024: “strcmp”: 形参和实参 1 的类型不同
-D:\C++文档\yundingshuyuan\云顶.c(122,14): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“int”
-D:\C++文档\yundingshuyuan\云顶.c(122,14): warning C4313: "printf": 格式字符串中的 "%s" 与类型为 "int" 的参数 1 冲突
   云顶书院学习.vcxproj -> D:\C++文档\yundingshuyuan\x64\Debug\云顶书院学习.exe
