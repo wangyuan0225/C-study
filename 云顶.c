@@ -5,95 +5,146 @@
 #include <string.h>
 #include <math.h>
 
+int calculate(int a, int b);
+void equals(struct Person* p1, struct Person* p2);
 
-//创建结构体
-struct studentsFile {
-	char id[15];
-	char name[20];
-	char sex[9];
+struct Person {
+	char name[99];
 	int age;
-	char class[100];
 };
 
 int main() {
-	struct studentsFile students[400];//定义一个400学生的结构体
-	FILE* fp = fopen("students.txt", "r");//打开students文件，只读
-	int pd = 0;//判定学生是否存在
-	for (int i = 0; i < 400; i++) {
-		fscanf(fp, "%[^,],%[^,],%[^,],%d,%s\n", &students[i].id, &students[i].name, &students[i].sex, &students[i].age,
-			&students[i].class);//参考了CSDN上如何讲文件内容复制到结构体中
-	}
-	while (1) {//循环
-		printf("i.查询模式1：根据姓名或学号查询学生信息\nii.查询模式2：根据年龄范围查询学生信息\niii.查询模式3：根据班级查询学生信息\n其他:退出查询\n");
-		printf("请输入查询模式:>");//提示语
-		int mod;
-		scanf("%d", &mod);//输入查询模式
-		switch (mod) {
-		case 1://进入模式1
-			pd = 0;//初始化判定
-			printf("样例1： 输入： 张三\n输出： 张三, 2017002871, 男, 17, 大数据1702\n张三, 2015009321, 男, 22, 信计1502\n");
-			printf("样例2： 输入： 2017009876\n输出： 小路, 2016009876, 男, 20, 大数据1701\n");
-			printf("请输入姓名或学号:>");//提示语
-			char pf[99];
-			scanf("%s", pf);//输入姓名或者学号
-			for (int i = 0; i < 401; i++) {//遍历结构体数组
-				if ((strcmp(students[i].name, pf) == 0)
-					|| (strcmp(students[i].id, pf) == 0)) {//判定所输入的学号或者姓名在文件中是否存在
-					printf("%s %s %s %d %s\n", students[i].id, students[i].name, students[i].sex, students[i].age,
-						students[i].class);//打印对应的学生
-					pd = 1;//改变判定值，说明学生信息存在
-				}
-			}
-			if (pd == 0)//判定值未改变，学生信息不存在
-				printf("查无此人\n");
-			printf("------------------------------------------\n");
-			break;//回到查询模式
-		case 2://进入模式2
-			pd = 0;//初始化判定
-			printf("样例1： 输入： 18 20 \n输出： 李四, 2017001765, 女, 18, 软件工程1712\n小路, 2016009876, 男, 20, 大数据1701\n大张伟, 2014002715, 男, 19, 计算机1402\n");
-			printf("请输入两个数确定年龄范围，要求第一个数小于等于第二个数:>");//提示语
-			int age[2];
-			scanf("%d%d", &age[0], &age[1]);//输入两个数字确定奈年龄范围
-			if (age[0] > age[1]) {//规定第一个数小于等于第二个数
-				printf("输入错误");
-				break;
-			}
-			else {
-				for (int i = 0; i < 401; i++) {//遍历结构体数组
-					if (students[i].age >= age[0] && students[i].age <= age[1]) {
-						printf("%s %s %s %d %s\n", students[i].id, students[i].name, students[i].sex, students[i].age, students[i].class);
-						pd = 1;//改变学生信息存在判定
-					}
-				}
-				if (pd == 0)//学生信息不存在
-					printf("查无此人\n");
-			}
-			printf("------------------------------------------\n");
-			break;
-		case 3:
-			pd = 0;
-			printf("样例1： 输入： 大数据1702\n输出： 张三, 2017002871, 男, 17, 大数据1702\n王璐丹, 2017009479, 女, 22, 大数据1702\n");
-			printf("请输入专业班级:>");
-			char class[99];
-			scanf("%s", class);//输入班级
-			for (int i = 0; i < 401; i++) {//作用同Case1和2
-				if ((strcmp(students[i].class, class) == 0) || (strcmp(students[i].class, class) == 0)) {
-					printf("%s %s %s %d %s\n", students[i].id, students[i].name, students[i].sex, students[i].age, students[i].class);
-					pd = 1;
-				}
-			}
-			if (pd == 0)//作用同case1&2
-				printf("查无此人\n");
-			printf("------------------------------------------\n");
-			break;
-		default://输入其他数，退出查询
-			printf("退出查询\n");
-			return 0;
-		}
-	}
-	fclose(fp);//关闭文件
+	//动态分配p1内存
+	struct Person* p1 = (struct Person*)malloc(sizeof(struct Person));
+	//初始化p1
+	printf("Person@%x\n", p1);
+	strcpy(p1->name, "null");
+	p1->age = 0;
+	printf("Person{name=\'%s\',age=%d}\n", p1->name, p1->age);
+	struct Person* p2 = p1;
+	//动态分配p3内存
+	struct Person* p3 = (struct Person*)malloc(sizeof(struct Person));
+	strcpy(p1->name , "小明");
+	p1->age = 13;
+	strcpy(p3->name , "小美");
+	p3->age = 12;
+	int x = 1, y = 2;
+	printf("Person{name=\'%s\',age=%d}\n", p1->name, p1->age);
+	printf("小明计算 %d + %d\n", x, y);
+	printf("小明算得结果为:%d\n", calculate(x, y));
+	printf("Person@%x\n", p2);
+	printf("Person{name=\'%s\',age=%d}\n", p2->name, p2->age);
+	equals(p1,p2);
+	equals(p1,p3);
+	//释放p1,p3内存
+	free(p1);
+	free(p3);
 	return 0;
 }
+//计算器
+int calculate(int a,int b) {
+	return a + b;
+}
+//判定两地址是否相同
+void equals(struct Person* p1,struct Person* p2) {
+	if (p1==p2){
+		printf("true\n");
+	}
+	else{
+		printf("false\n");
+	}
+}
+
+
+
+////创建结构体
+//struct studentsFile {
+//	char id[15];
+//	char name[20];
+//	char sex[9];
+//	int age;
+//	char class[100];
+//};
+//
+//int main() {
+//	struct studentsFile students[400];//定义一个400学生的结构体
+//	FILE* fp = fopen("students.txt", "r");//打开students文件，只读
+//	int pd = 0;//判定学生是否存在
+//	for (int i = 0; i < 400; i++) {
+//		fscanf(fp, "%[^,],%[^,],%[^,],%d,%s\n", &students[i].id, &students[i].name, &students[i].sex, &students[i].age,
+//			&students[i].class);//参考了CSDN上如何讲文件内容复制到结构体中
+//	}
+//	while (1) {//循环
+//		printf("i.查询模式1：根据姓名或学号查询学生信息\nii.查询模式2：根据年龄范围查询学生信息\niii.查询模式3：根据班级查询学生信息\n其他:退出查询\n");
+//		printf("请输入查询模式:>");//提示语
+//		int mod;
+//		scanf("%d", &mod);//输入查询模式
+//		switch (mod) {
+//		case 1://进入模式1
+//			pd = 0;//初始化判定
+//			printf("样例1： 输入： 张三\n输出： 张三, 2017002871, 男, 17, 大数据1702\n张三, 2015009321, 男, 22, 信计1502\n");
+//			printf("样例2： 输入： 2017009876\n输出： 小路, 2016009876, 男, 20, 大数据1701\n");
+//			printf("请输入姓名或学号:>");//提示语
+//			char pf[99];
+//			scanf("%s", pf);//输入姓名或者学号
+//			for (int i = 0; i < 401; i++) {//遍历结构体数组
+//				if ((strcmp(students[i].name, pf) == 0)
+//					|| (strcmp(students[i].id, pf) == 0)) {//判定所输入的学号或者姓名在文件中是否存在
+//					printf("%s %s %s %d %s\n", students[i].id, students[i].name, students[i].sex, students[i].age,
+//						students[i].class);//打印对应的学生
+//					pd = 1;//改变判定值，说明学生信息存在
+//				}
+//			}
+//			if (pd == 0)//判定值未改变，学生信息不存在
+//				printf("查无此人\n");
+//			printf("------------------------------------------\n");
+//			break;//回到查询模式
+//		case 2://进入模式2
+//			pd = 0;//初始化判定
+//			printf("样例1： 输入： 18 20 \n输出： 李四, 2017001765, 女, 18, 软件工程1712\n小路, 2016009876, 男, 20, 大数据1701\n大张伟, 2014002715, 男, 19, 计算机1402\n");
+//			printf("请输入两个数确定年龄范围，要求第一个数小于等于第二个数:>");//提示语
+//			int age[2];
+//			scanf("%d%d", &age[0], &age[1]);//输入两个数字确定奈年龄范围
+//			if (age[0] > age[1]) {//规定第一个数小于等于第二个数
+//				printf("输入错误");
+//				break;
+//			}
+//			else {
+//				for (int i = 0; i < 401; i++) {//遍历结构体数组
+//					if (students[i].age >= age[0] && students[i].age <= age[1]) {
+//						printf("%s %s %s %d %s\n", students[i].id, students[i].name, students[i].sex, students[i].age, students[i].class);
+//						pd = 1;//改变学生信息存在判定
+//					}
+//				}
+//				if (pd == 0)//学生信息不存在
+//					printf("查无此人\n");
+//			}
+//			printf("------------------------------------------\n");
+//			break;
+//		case 3:
+//			pd = 0;
+//			printf("样例1： 输入： 大数据1702\n输出： 张三, 2017002871, 男, 17, 大数据1702\n王璐丹, 2017009479, 女, 22, 大数据1702\n");
+//			printf("请输入专业班级:>");
+//			char class[99];
+//			scanf("%s", class);//输入班级
+//			for (int i = 0; i < 401; i++) {//作用同Case1和2
+//				if ((strcmp(students[i].class, class) == 0) || (strcmp(students[i].class, class) == 0)) {
+//					printf("%s %s %s %d %s\n", students[i].id, students[i].name, students[i].sex, students[i].age, students[i].class);
+//					pd = 1;
+//				}
+//			}
+//			if (pd == 0)//作用同case1&2
+//				printf("查无此人\n");
+//			printf("------------------------------------------\n");
+//			break;
+//		default://输入其他数，退出查询
+//			printf("退出查询\n");
+//			return 0;
+//		}
+//	}
+//	fclose(fp);//关闭文件
+//	return 0;
+//}
 
 
 
